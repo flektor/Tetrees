@@ -65,10 +65,15 @@ namespace GGJ23
         private void CreateNewRoot()
         {
             var nodePrefab = _rootPrefabs[Random.Range(0, _rootPrefabs.Count)];
-            _currentRoot = Instantiate(nodePrefab);
+            _currentRoot = Instantiate(nodePrefab, new Vector3(10000, 0, 0), Quaternion.identity);
             _currentRoot.highlightMaterial = _highlightMaterial;
             _currentRoot.floatingMaterial = _floatingMaterial;
             _currentRoot.SetMaterial(_floatingMaterial);
+            var flip = Random.Range(0f, 1f) > 0.5f;
+            if (flip)
+            {
+                _currentRoot.transform.localScale = new Vector3(-1, 1, 1);
+            }
         }
     }
 }
