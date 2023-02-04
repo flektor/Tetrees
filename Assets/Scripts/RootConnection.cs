@@ -9,28 +9,25 @@ namespace GGJ23
 
         private void Awake()
         {
-           // DisableConnection();
-           EnableConnection();
+            InitConnection();
         }
 
+        public void InitConnection()
+        {
+            nodeGizmo.gameObject.SetActive(false);
+            mesh.gameObject.SetActive(true);
+        }
+        
         public void EnableConnection()
         {
-            if (_isConnectionActive) return;
-
-            _isConnectionActive = true;
             mesh.gameObject.SetActive(false);
             nodeGizmo.gameObject.SetActive(true);
         }
 
         public void DisableConnection()
         {
-            if (!_isConnectionActive) return;
-
-            _isConnectionActive = false;
             nodeGizmo.gameObject.SetActive(false);
-            mesh.gameObject.SetActive(true);
+            mesh.gameObject.SetActive(false);
         }
-
-        private bool _isConnectionActive = false;
     }
 }
