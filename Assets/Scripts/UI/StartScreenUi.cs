@@ -1,43 +1,46 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class StartScreenUi : MonoBehaviour
+namespace GGJ23.UI
 {
-    public CanvasGroup startCanvasGroup;
-    public CanvasGroup tutorialCanvasGroup;
-    public CanvasGroup levelCanvasGroup;
-
-    public Button startButton;
-    public Button tutorialButton;
-    
-    private void Start()
+    public class StartScreenUi : MonoBehaviour
     {
-        HideGroup(tutorialCanvasGroup);
-        HideGroup(levelCanvasGroup);
-        ShowGroup(startCanvasGroup);
-        
-        startButton.onClick.AddListener(() =>
+        public CanvasGroup startCanvasGroup;
+        public CanvasGroup tutorialCanvasGroup;
+        public CanvasGroup levelCanvasGroup;
+
+        public Button startButton;
+        public Button tutorialButton;
+
+        private void Start()
         {
-            HideGroup(startCanvasGroup);
-            ShowGroup(levelCanvasGroup);
-        });
-        
-        tutorialButton.onClick.AddListener(() =>
+            HideGroup(tutorialCanvasGroup);
+            HideGroup(levelCanvasGroup);
+            ShowGroup(startCanvasGroup);
+
+            startButton.onClick.AddListener(() =>
+            {
+                HideGroup(startCanvasGroup);
+                ShowGroup(levelCanvasGroup);
+            });
+
+            tutorialButton.onClick.AddListener(() =>
+            {
+                HideGroup(startCanvasGroup);
+                ShowGroup(tutorialCanvasGroup);
+            });
+        }
+
+        private void ShowGroup(CanvasGroup group)
         {
-            HideGroup(startCanvasGroup);
-            ShowGroup(tutorialCanvasGroup);
-        });
-    }
+            group.alpha = 1;
+            group.blocksRaycasts = true;
+        }
 
-    private void ShowGroup(CanvasGroup group)
-    {
-        group.alpha = 1;
-        group.blocksRaycasts = true;
-    }
-
-    private void HideGroup(CanvasGroup group)
-    {
-        group.alpha = 0;
-        group.blocksRaycasts = false;
+        private void HideGroup(CanvasGroup group)
+        {
+            group.alpha = 0;
+            group.blocksRaycasts = false;
+        }
     }
 }
