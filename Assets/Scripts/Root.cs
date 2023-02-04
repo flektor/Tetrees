@@ -105,6 +105,7 @@ namespace GGJ23
 
         private void LockDown()
         {
+            //TODO check if colliding? / don't do if collided
             _placementState = PlacementState.Locked;
         }
         
