@@ -66,7 +66,6 @@ namespace GGJ23
         {
             var nodePrefab = _rootPrefabs[Random.Range(0, _rootPrefabs.Count)];
             _currentRoot = Instantiate(nodePrefab);
-            _currentRoot.barkMaterial = _barkMaterial;
             _currentRoot.highlightMaterial = _highlightMaterial;
             _currentRoot.floatingMaterial = _floatingMaterial;
             _currentRoot.SetMaterial(_floatingMaterial);
