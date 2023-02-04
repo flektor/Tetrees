@@ -18,7 +18,6 @@ namespace GGJ23
         }
 
         public Material floatingMaterial;
-        public Material barkMaterial;
         public Material highlightMaterial;
 
         public RootConnection snappedConnection;
@@ -29,7 +28,7 @@ namespace GGJ23
 
         private IEnumerable<MeshRenderer> _meshRenderers;
 
-        private int collisions = 0;
+        private int _collisions = 0;
 
         private void Awake()
         {
@@ -60,7 +59,7 @@ namespace GGJ23
                 case PlacementState.Rotating when Input.GetMouseButtonDown(1):
                     HandleBackToDrag(openConnections, threshold);
                     break;
-                case PlacementState.Rotating when Input.GetMouseButtonDown(0):
+                case PlacementState.Rotating when _collisions == 0 && Input.GetMouseButtonDown(0):
                 {
                     LockDown();
                     break;
@@ -157,8 +156,8 @@ namespace GGJ23
                 return;
             }
 
-            collisions++;
-            if (collisions == 1)
+            _collisions++;
+            if (_collisions == 1)
             {
                 SetMaterial(highlightMaterial);
             }
@@ -171,8 +170,8 @@ namespace GGJ23
                 return;
             }
 
-            collisions--;
-            if (collisions == 0)
+            _collisions--;
+            if (_collisions == 0)
             {
                 SetMaterial(floatingMaterial);
             }
