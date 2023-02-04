@@ -2,11 +2,7 @@
 
 public class Drag : MonoBehaviour
 {
-
-    Vector3 prevMousePosition;
- 
-
-
+      
     void OnMouseDown()
     {
         _initTransformPosition = transform.position;
@@ -28,8 +24,7 @@ public class Drag : MonoBehaviour
 
     void OnMouseUp()
     {
-        transform.position = _dropPosition;
-        prevMousePosition = _dropPosition; 
+        transform.position = _dropPosition; 
     }
 
 
