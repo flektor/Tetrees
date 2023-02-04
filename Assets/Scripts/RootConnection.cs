@@ -4,10 +4,10 @@ namespace GGJ23
 {
     public class RootConnection : MonoBehaviour
     {
-        [SerializeField] Transform mesh;
-        [SerializeField] Transform nodeGizmo;
+        [SerializeField] private Transform mesh;
+        [SerializeField] private Transform nodeGizmo;
 
-        void Awake()
+        private void Awake()
         {
            // DisableConnection();
            EnableConnection();
@@ -31,6 +31,6 @@ namespace GGJ23
             mesh.gameObject.SetActive(true);
         }
 
-        bool _isConnectionActive = false;
+        private bool _isConnectionActive = false;
     }
 }

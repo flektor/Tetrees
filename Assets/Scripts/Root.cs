@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace GGJ23
@@ -13,8 +12,6 @@ namespace GGJ23
             Locked
         }
         
-        public RootConnection start;
-
         public RootConnection[] outgoingConnections;
 
         private PlacementState _placementState;

@@ -14,20 +14,13 @@ namespace GGJ23
 
         private List<RootConnection> _openConnections = new List<RootConnection>();
 
-        [SerializeField] private Root _currentRoot;
+        private Root _currentRoot;
 
         private void Start()
         {
             IEnumerable<RootConnection> initialConnections = FindObjectsOfType<RootConnection>();
 
             _currentRoot = Instantiate(_rootPrefabs.First());
-            
-            //TODO remove if no initial current root is in scene anymore
-            if (_currentRoot)
-            {
-                initialConnections =
-                    initialConnections.Except(_currentRoot.outgoingConnections.Concat(_currentRoot.start.Yield()));
-            }
 
             _openConnections = initialConnections.ToList();
         }
