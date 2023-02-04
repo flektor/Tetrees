@@ -1,10 +1,15 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace GGJ23
 {
     public class Root : MonoBehaviour
     {
+        private const int OBSTACLE_LAYER = 6;
+        private const int PIECE_LAYER = 0;
+        private const int UI_LAYER = 5;
+
         public enum PlacementState
         {
             Dragging,
@@ -12,11 +17,34 @@ namespace GGJ23
             Locked
         }
 
+        public Material floatingMaterial;
+        public Material barkMaterial;
+        public Material highlightMaterial;
+
         public RootConnection snappedConnection;
 
         public RootConnection[] outgoingConnections;
 
         private PlacementState _placementState;
+
+        private IEnumerable<MeshRenderer> _meshRenderers;
+
+        private int collisions = 0;
+
+        private void Awake()
+        {
+            var rb = gameObject.AddComponent<Rigidbody2D>();
+            rb.bodyType = RigidbodyType2D.Kinematic;
+            var colliders = GetComponentsInChildren<Collider2D>();
+            foreach (var c in colliders)
+            {
+                c.isTrigger = true;
+            }
+
+            SetCollidersLayer(OBSTACLE_LAYER);
+
+            _meshRenderers = GetComponentsInChildren<MeshRenderer>().Where(o => o.gameObject.layer != UI_LAYER);
+        }
 
         public void HandleUpdate(List<RootConnection> openConnections, float threshold,
             out PlacementState placementState)
@@ -47,15 +75,6 @@ namespace GGJ23
             placementState = _placementState;
         }
 
-        public void SetCollidersAsTrigger(bool isTrigger)
-        {
-            var colliders = GetComponentsInChildren<Collider2D>();
-            foreach (var c in colliders)
-            {
-                c.isTrigger = isTrigger;
-            }
-        }
-
         private void HandleRotate()
         {
             Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -71,12 +90,10 @@ namespace GGJ23
 
             if (CloseEnoughToOpenConnection(openConnections, snapThreshold))
             {
-                //Debug.Log($"Connected to open connection: {connection}");
                 transform.position = snappedConnection.transform.position;
             }
             else
             {
-                //Debug.Log($"Dragging to {newPosition} at Frame {Time.frameCount}");
                 transform.position = newPosition;
             }
         }
@@ -86,6 +103,8 @@ namespace GGJ23
             if (CloseEnoughToOpenConnection(openConnections, threshold))
             {
                 _placementState = PlacementState.Rotating;
+
+                SetCollidersLayer(PIECE_LAYER);
             }
         }
 
@@ -112,28 +131,59 @@ namespace GGJ23
         {
             _placementState = PlacementState.Dragging;
             HandleDrag(openConnections, unSnapThreshold);
+            SetCollidersLayer(OBSTACLE_LAYER);
         }
 
         private void LockDown()
         {
             //TODO check if colliding? / don't do if collided
             _placementState = PlacementState.Locked;
+            SetCollidersLayer(OBSTACLE_LAYER);
         }
 
-        //
-        // public void HandleTriggerEnter(Collider other)
-        // {
-        //     if (other.CompareTag("Node"))
-        //     {
-        //         _collider = other;
-        //         transform.position = _collider.transform.position;
-        //     }
-        // }
-        //
-        // public void HandleTriggerExit(Collider other)
-        // {
-        //     _collider = null;
-        //     _placementState = PlacementState.Dragging;
-        // }
+        private void SetCollidersLayer(int layer)
+        {
+            var colliders = GetComponentsInChildren<Collider2D>();
+            foreach (var c in colliders)
+            {
+                c.gameObject.layer = layer;
+            }
+        }
+
+        private void OnTriggerEnter2D(Collider2D col)
+        {
+            if (col.gameObject.layer != OBSTACLE_LAYER)
+            {
+                return;
+            }
+
+            collisions++;
+            if (collisions == 1)
+            {
+                SetMaterial(highlightMaterial);
+            }
+        }
+
+        private void OnTriggerExit2D(Collider2D other)
+        {
+            if (other.gameObject.layer != OBSTACLE_LAYER)
+            {
+                return;
+            }
+
+            collisions--;
+            if (collisions == 0)
+            {
+                SetMaterial(floatingMaterial);
+            }
+        }
+
+        public void SetMaterial(Material material)
+        {
+            foreach (var meshRenderer in _meshRenderers)
+            {
+                meshRenderer.material = material;
+            }
+        }
     }
 }
