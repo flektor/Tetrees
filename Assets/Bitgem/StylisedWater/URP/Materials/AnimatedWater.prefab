@@ -91,7 +91,7 @@ MonoBehaviour:
   IncludeFoam: 15
   TileSize: 0.1
   ShowDebug: 0
-  RealtimeUpdates: 1
+  RealtimeUpdates: 0
 --- !u!23 &6731535661708592840
 MeshRenderer:
   m_ObjectHideFlags: 0
