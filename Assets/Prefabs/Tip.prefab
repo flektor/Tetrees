@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 709891849001970255}
-  - component: {fileID: 8546773984649185056}
+  - component: {fileID: 451556035126242163}
   m_Layer: 0
   m_Name: Collider
   m_TagString: Untagged
@@ -24,16 +24,16 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1287740235312099672}
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1860066596869685029}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
---- !u!70 &8546773984649185056
-CapsuleCollider2D:
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!60 &451556035126242163
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -45,9 +45,22 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -576.185, y: 0.007931207}
-  m_Size: {x: 40238.4, y: 0.024980862}
-  m_Direction: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.0003039381, y: -0.0054593636}
+      - {x: 0.0055137537, y: -0.00023855493}
+      - {x: 0.0006847031, y: 0.005347742}
+      - {x: -0.024617063, y: -0.000026331312}
 --- !u!1 &5300926506261041066
 GameObject:
   m_ObjectHideFlags: 0
