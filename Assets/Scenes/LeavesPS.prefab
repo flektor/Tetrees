@@ -25,14 +25,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 150432}
-  m_LocalRotation: {x: 0.6551604, y: -0.26601663, z: -0.2660167, w: 0.6551604}
+  m_LocalRotation: {x: 0.6551616, y: -0.26601362, z: -0.26601362, w: 0.6551616}
   m_LocalPosition: {x: 6.4136667, y: 4, z: 14.91}
-  m_LocalScale: {x: 1, y: 13.360711, z: 1}
+  m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 45.803, y: -90, z: -90}
 --- !u!198 &19850432
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -116,7 +116,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 5
+      scalar: 50
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -547,7 +547,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     randomizeRotationDirection: 0
-    maxNumParticles: 600
+    maxNumParticles: 1000
     customEmitterVelocity: {x: 0, y: 0, z: 0}
     size3D: 0
     rotation3D: 0
@@ -813,7 +813,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 60
+      scalar: 20
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -1395,11 +1395,11 @@ ParticleSystem:
     speedRange: {x: 0, y: 1}
     tilesX: 2
     tilesY: 2
-    animationType: 0
+    animationType: 1
     rowIndex: 0
-    cycles: 8
+    cycles: 20
     uvChannelMask: -1
-    rowMode: 1
+    rowMode: 0
     sprites:
     - sprite: {fileID: 0}
     flipU: 0
@@ -4692,7 +4692,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4e20f32f38d4c2f498e7da74f349015b, type: 2}
+  - {fileID: 2100000, guid: 8807888dc8d9489418c1a1e67e511cc3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
