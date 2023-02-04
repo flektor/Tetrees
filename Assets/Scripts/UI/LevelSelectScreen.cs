@@ -3,21 +3,25 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class LevelSelectScreen : MonoBehaviour
+namespace GGJ23.UI
 {
-    public List<Button> buttons = new List<Button>();
-
-    private void Awake()
+    public class LevelSelectScreen : MonoBehaviour
     {
-        for (int i = 0; i < buttons.Count; i++)
+        public List<Button> buttons = new List<Button>();
+
+        private void Awake()
         {
-            var level = i + 1;
-            buttons[i].onClick.AddListener(() => StartLevel(level));
+            for (int i = 0; i < buttons.Count; i++)
+            {
+                var level = i + 1;
+                buttons[i].onClick.AddListener(() => StartLevel(level));
+            }
         }
-    }
 
-    private void StartLevel(int level)
-    {
-        SceneManager.LoadScene(level, LoadSceneMode.Single);
+        private void StartLevel(int level)
+        {
+            SceneManager.LoadScene(level, LoadSceneMode.Single);
+            SceneManager.LoadScene(IngameUi.IngameUiSceneName, LoadSceneMode.Additive);
+        }
     }
 }
