@@ -30,6 +30,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3456171659957278454}
+  - {fileID: 7586019950815949384}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -45,10 +46,88 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10eca663b71242028aa1f0dfb6a035ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  start: {fileID: 0}
+  floatingMaterial: {fileID: 0}
+  barkMaterial: {fileID: 0}
+  highlightMaterial: {fileID: 0}
+  snappedConnection: {fileID: 0}
   outgoingConnections:
   - {fileID: 6186249004530507244}
   - {fileID: 6588038378286846006}
+--- !u!1 &2374413526609330202
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7586019950815949384}
+  - component: {fileID: 6323770846731810982}
+  m_Layer: 0
+  m_Name: collider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7586019950815949384
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2374413526609330202}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.05, y: -1.51, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 290730691035104257}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!60 &6323770846731810982
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2374413526609330202}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0, y: 0.82769203}
+      - {x: -0.6097117, y: 1.1888225}
+      - {x: -1.4162979, y: -0.058148384}
+      - {x: -1.6016197, y: -0.75271416}
+      - {x: -0.65084976, y: -1.0268806}
+      - {x: -0.51675034, y: -0.38662958}
+      - {x: -0.024650574, y: 0.34502697}
+      - {x: 0.4191246, y: -0.30995798}
+      - {x: 0.47347033, y: -0.6947019}
+      - {x: 0.47982216, y: -1.2179122}
+      - {x: 0.88489723, y: -3.009285}
+      - {x: 0.7385597, y: -3.48277}
+      - {x: 0.5202522, y: -5.4584727}
+      - {x: 1.5461502, y: -5.4001217}
+      - {x: 1.7790527, y: -2.890695}
+      - {x: 1.5582657, y: -1.3031759}
+      - {x: 1.2712975, y: -0.036109924}
+      - {x: 0.5375967, y: 1.2176685}
 --- !u!1 &4285222271744909469
 GameObject:
   m_ObjectHideFlags: 0
