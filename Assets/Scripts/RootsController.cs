@@ -20,6 +20,8 @@ namespace GGJ23
         {
             IEnumerable<RootConnection> initialConnections = FindObjectsOfType<RootConnection>();
 
+            _currentRoot = Instantiate(_rootPrefabs.First());
+            
             //TODO remove if no initial current root is in scene anymore
             if (_currentRoot)
             {
