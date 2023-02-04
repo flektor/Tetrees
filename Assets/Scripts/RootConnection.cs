@@ -10,6 +10,8 @@ namespace GGJ23
         private void Awake()
         {
             InitConnection();
+            mesh.transform.localPosition = Vector3.zero;
+            nodeGizmo.transform.localPosition = Vector3.zero;
         }
 
         public void InitConnection()
