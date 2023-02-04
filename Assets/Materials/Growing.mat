@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Connection
+  m_Name: Growing
   m_Shader: {fileID: -6465566751694194690, guid: 00fc16167b5d2d34489f3761076fca86, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
