@@ -6,12 +6,12 @@ namespace GGJ23
     {
         public Root container;
 
-        void OnTriggerEnter(Collider other)
+        private void OnTriggerEnter(Collider other)
         {
             //container.HandleTriggerEnter(other);
         }
 
-        void OnTriggerExit(Collider other)
+        private void OnTriggerExit(Collider other)
         {
             //container.HandleTriggerExit(other);
         }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace GGJ23
@@ -12,14 +11,15 @@ namespace GGJ23
             Rotating,
             Locked
         }
-        
-        public RootConnection start;
+
+        public RootConnection snappedConnection;
 
         public RootConnection[] outgoingConnections;
 
         private PlacementState _placementState;
 
-        public void HandleUpdate(List<RootConnection> openConnections, float threshold, out PlacementState placementState)
+        public void HandleUpdate(List<RootConnection> openConnections, float threshold,
+            out PlacementState placementState)
         {
             switch (_placementState)
             {
@@ -47,10 +47,19 @@ namespace GGJ23
             placementState = _placementState;
         }
 
+        public void SetCollidersAsTrigger(bool isTrigger)
+        {
+            var colliders = GetComponentsInChildren<Collider2D>();
+            foreach (var c in colliders)
+            {
+                c.isTrigger = isTrigger;
+            }
+        }
+
         private void HandleRotate()
         {
             Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Vector3 delta = mouseWorldPos - (Vector2)transform.position;
+            Vector3 delta = mouseWorldPos - (Vector2) transform.position;
             var angle = Vector3.SignedAngle(Vector3.down, delta, Vector3.forward);
             transform.rotation = Quaternion.Euler(0, 0, angle);
         }
@@ -60,10 +69,10 @@ namespace GGJ23
             var newPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             newPosition.z = transform.position.z;
 
-            if (CloseEnoughToOpenConnection(openConnections, snapThreshold, out var connection))
+            if (CloseEnoughToOpenConnection(openConnections, snapThreshold))
             {
                 //Debug.Log($"Connected to open connection: {connection}");
-                transform.position = connection.transform.position;
+                transform.position = snappedConnection.transform.position;
             }
             else
             {
@@ -74,24 +83,24 @@ namespace GGJ23
 
         private void TryStartRotating(List<RootConnection> openConnections, float threshold)
         {
-            if (CloseEnoughToOpenConnection(openConnections, threshold, out var connection))
+            if (CloseEnoughToOpenConnection(openConnections, threshold))
             {
                 _placementState = PlacementState.Rotating;
             }
         }
 
-        private bool CloseEnoughToOpenConnection(List<RootConnection> openConnections, float threshold, out RootConnection connection)
+        private bool CloseEnoughToOpenConnection(List<RootConnection> openConnections, float threshold)
         {
-            connection = null;
+            snappedConnection = null;
             var currentPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            currentPos.z = transform.position.z;
-            
+            currentPos.z = 0;
+
             foreach (var openConnection in openConnections)
             {
                 var delta = currentPos - openConnection.transform.position;
                 if (delta.sqrMagnitude < threshold)
                 {
-                    connection = openConnection;
+                    snappedConnection = openConnection;
                     return true;
                 }
             }
@@ -110,7 +119,7 @@ namespace GGJ23
             //TODO check if colliding? / don't do if collided
             _placementState = PlacementState.Locked;
         }
-        
+
         //
         // public void HandleTriggerEnter(Collider other)
         // {
