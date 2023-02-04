@@ -62,10 +62,12 @@ namespace GGJ23
 
             if (CloseEnoughToOpenConnection(openConnections, snapThreshold, out var connection))
             {
+                //Debug.Log($"Connected to open connection: {connection}");
                 transform.position = connection.transform.position;
             }
             else
             {
+                //Debug.Log($"Dragging to {newPosition} at Frame {Time.frameCount}");
                 transform.position = newPosition;
             }
         }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -17,7 +18,16 @@ namespace GGJ23
 
         private void Start()
         {
-            _openConnections = GameObject.FindObjectsOfType<RootConnection>().ToList();
+            IEnumerable<RootConnection> initialConnections = FindObjectsOfType<RootConnection>();
+
+            //TODO remove if no initial current root is in scene anymore
+            if (_currentRoot)
+            {
+                initialConnections =
+                    initialConnections.Except(_currentRoot.outgoingConnections.Concat(_currentRoot.start.Yield()));
+            }
+
+            _openConnections = initialConnections.ToList();
         }
 
         private void Update()
