@@ -25,6 +25,7 @@ namespace GGJ23
         [SerializeField] private AudioClip _winSound;
         [SerializeField] private AudioClip _waterReachedSound;
         [SerializeField] private AudioClip _timoutSound;
+        [SerializeField] private AudioClip _looseSound;
         
         private List<RootConnection> _openConnections = new();
         private readonly List<RootConnection> _newConnections = new();
@@ -201,7 +202,7 @@ namespace GGJ23
         private IEnumerator VictoryRoutine()
         {
             PlaySound(_winSound);
-            yield return new WaitForSeconds(2);
+            yield return new WaitForSeconds(3f);
             SceneManager.LoadScene("StartScreen");
         }
 
@@ -212,7 +213,8 @@ namespace GGJ23
 
         private IEnumerator LoseRoutine()
         {
-            yield return new WaitForSeconds(2);
+            PlaySound(_looseSound);
+            yield return new WaitForSeconds(3f);
             SceneManager.LoadScene("StartScreen");
         }
     }
