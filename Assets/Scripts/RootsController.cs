@@ -18,9 +18,15 @@ namespace GGJ23
         private readonly List<RootConnection> _newConnections = new();
 
         private Root _currentRoot;
+        private Camera _camera;
+        
+        private Vector3 _initialCameraPosition;
 
         private void Start()
         {
+            _camera = Camera.main;
+            _initialCameraPosition = _camera.transform.position;
+            
             _openConnections = FindObjectsOfType<RootConnection>().ToList();
             _openConnections.ForEach(c => c.EnableConnection());
 
@@ -29,6 +35,11 @@ namespace GGJ23
 
         private void Update()
         {
+            if (Input.mouseScrollDelta.y != 0)
+            {
+                Zoom(Input.mouseScrollDelta.y);
+            }   
+            
             if (_currentRoot)
             {
                 _currentRoot.HandleUpdate(_openConnections, _snapThreshold, out var placementState);
@@ -38,6 +49,15 @@ namespace GGJ23
                     PlaceRoot();
                 }
             }
+        }
+
+        private void Zoom(float zoom)
+        {
+            var mouseWorldPosStart = _camera.ScreenToWorldPoint(Input.mousePosition);
+            _camera.orthographicSize -= zoom;
+            
+            var mouseWorldPosDiff = mouseWorldPosStart - _camera.ScreenToWorldPoint(Input.mousePosition);
+            _camera.transform.position += mouseWorldPosDiff;
         }
 
         private void PlaceRoot()

@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -29,6 +29,7 @@ namespace GGJ23
         private IEnumerable<MeshRenderer> _meshRenderers;
 
         private int _collisions = 0;
+        private Camera _camera;
 
         private void Awake()
         {
@@ -43,6 +44,8 @@ namespace GGJ23
             SetCollidersLayer(OBSTACLE_LAYER);
 
             _meshRenderers = GetComponentsInChildren<MeshRenderer>().Where(o => o.gameObject.layer != UI_LAYER);
+            
+            _camera = Camera.main;
         }
 
         public void HandleUpdate(List<RootConnection> openConnections, float threshold,
@@ -76,15 +79,29 @@ namespace GGJ23
 
         private void HandleRotate()
         {
-            Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 mouseWorldPos = _camera.ScreenToWorldPoint(Input.mousePosition);
             Vector3 delta = mouseWorldPos - (Vector2) transform.position;
             var angle = Vector3.SignedAngle(Vector3.down, delta, Vector3.forward);
             transform.rotation = Quaternion.Euler(0, 0, angle);
+            
+            foreach (var newConnection in outgoingConnections)
+            {
+                bool IsNotVisible(RootConnection c)
+                {
+                    var viewportPoint = _camera.WorldToViewportPoint(c.transform.position);
+                    return viewportPoint.x is < 0 or > 1 || viewportPoint.y is < 0 or > 1;
+                }
+
+                while (IsNotVisible(newConnection))
+                {
+                    _camera.orthographicSize += 2;
+                }
+            }
         }
 
         private void HandleDrag(List<RootConnection> openConnections, float snapThreshold)
         {
-            var newPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            var newPosition = _camera.ScreenToWorldPoint(Input.mousePosition);
             newPosition.z = transform.position.z;
 
             if (CloseEnoughToOpenConnection(openConnections, snapThreshold))
@@ -110,7 +127,7 @@ namespace GGJ23
         private bool CloseEnoughToOpenConnection(List<RootConnection> openConnections, float threshold)
         {
             snappedConnection = null;
-            var currentPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            var currentPos = _camera.ScreenToWorldPoint(Input.mousePosition);
             currentPos.z = 0;
 
             foreach (var openConnection in openConnections)
