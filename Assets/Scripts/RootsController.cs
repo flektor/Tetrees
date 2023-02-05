@@ -19,12 +19,20 @@ namespace GGJ23
         [SerializeField] private float _removeRootTime;
         [SerializeField] private TMP_Text _removeRootTimerLabel;
         [SerializeField] private GameObject _snapVfx;
-        [SerializeField] private GameObject _timeoutVfx;
+
         [SerializeField] private TMP_Text _youWinText;
         [SerializeField] private TMP_Text _youLoseText;
         [SerializeField] private Image _timerProgressBar;
+
         [SerializeField] private GameObject _timerCanvas;
-        
+
+        [SerializeField] private AudioSource _audioSource;
+
+        [SerializeField] private AudioClip _placeSound;
+        [SerializeField] private AudioClip _winSound;
+        [SerializeField] private AudioClip _waterReachedSound;
+
+        [SerializeField] private AudioClip _timoutSound;
 
         private List<RootConnection> _openConnections = new();
         private readonly List<RootConnection> _newConnections = new();
@@ -33,6 +41,7 @@ namespace GGJ23
         private Root _currentRoot;
         private RootSpawner _rootSpawner;
         private bool _pause;
+        private bool _canPlayTimerSound = true;
 
         private float _removeRootCurrentTime;
 
@@ -86,8 +95,15 @@ namespace GGJ23
             var pos = _timeOutRoot ? _timeOutRoot.transform.position + new Vector3(0, 0, -5) : new Vector3(1000, 0, 0);
             _timerCanvas.transform.position = pos;
 
+            if (_removeRootCurrentTime <= 1.4f && _canPlayTimerSound)
+            {
+                _canPlayTimerSound = false;
+                PlaySound(_timoutSound);
+            }
+
             if (_removeRootCurrentTime <= -0.3f && _timeOutRoot)
             {
+                _canPlayTimerSound = true;
                 _removeRootCurrentTime = _removeRootTime;
                 _timeOutRoot.InitConnection();
                 _openConnections.Remove(_timeOutRoot);
@@ -137,6 +153,7 @@ namespace GGJ23
             _openConnections.AddRange(_newConnections);
             _newConnections.Clear();
             _currentRoot.SpawnPlaceVfx(_snapVfx);
+            PlaySound(_placeSound);
 
             if (CheckForReachedWater(out var waterPocket))
             {
@@ -192,19 +209,26 @@ namespace GGJ23
 
         private void PlaySound()
         {
+            PlaySound(_waterReachedSound);
         }
 
         private IEnumerator VictoryRoutine()
         {
             _youWinText.gameObject.SetActive(true);
-            yield return new WaitForSeconds(1);
+            PlaySound(_winSound);
+            yield return new WaitForSeconds(2);
             SceneManager.LoadScene("StartScreen");
+        }
+
+        private void PlaySound(AudioClip clip)
+        {
+            _audioSource.PlayOneShot(clip);
         }
 
         private IEnumerator LoseRoutine()
         {
             _youLoseText.gameObject.SetActive(true);
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(2);
             SceneManager.LoadScene("StartScreen");
         }
     }

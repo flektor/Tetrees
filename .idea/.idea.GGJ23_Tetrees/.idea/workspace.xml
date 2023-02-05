@@ -2,10 +2,45 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c8351354-30b8-4123-a487-31f1f72b8f7b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.GGJ23_Tetrees/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GGJ23_Tetrees/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Scenario.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Scenario.prefab" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Audio.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Audio/Music_Success.wav" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Audio/Music_Success.wav.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Audio/SFX_Countdown_Cute_Loop.wav" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Audio/SFX_Countdown_Cute_Loop.wav.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Audio/SFX_Water_reached.wav" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Audio/SFX_Water_reached.wav.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Audio/SFX_place_root.wav" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Audio/SFX_place_root.wav.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/DecorationRoots.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/DecorationRoots/DecorationRoot1.prefab" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/DecorationRoots/DecorationRoot1.prefab.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/DecorationRoots/DecorationRoot2.prefab" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/DecorationRoots/DecorationRoot2.prefab.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/DecorationRoots/DecorationRoot3.prefab" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/DecorationRoots/DecorationRoot3.prefab.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/DecorationRoots/DecorationRoot4.prefab" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/DecorationRoots/DecorationRoot4.prefab.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/DecorationRoots/DecorationRoot5.prefab" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/DecorationRoots/DecorationRoot5.prefab.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/DecorationRoots/DecorationRoot6.prefab" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/DecorationRoots/DecorationRoot6.prefab.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/DecorationRoots/DecorationRootGroup1.prefab" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/DecorationRoots/DecorationRootGroup1.prefab.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/DecorationRoots/DecorationRootGroup2.prefab" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/DecorationRoots/DecorationRootGroup2.prefab.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/DecorationRoots/DecorationRootTip.prefab" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/DecorationRoots/DecorationRootTip.prefab.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/DecorationRoots/DecorationRoot_c2.prefab" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/DecorationRoots/DecorationRoot_c2.prefab.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scenes/Level_03.unity" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scenes/Level_03.unity.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ProjectSettings/BurstAotSettings_Android.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ProjectSettings/BurstAotSettings_StandaloneOSX.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ProjectSettings/BurstAotSettings_iOS.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/RootParts/root_v1.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/RootParts/root_v1.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/RootsController.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/RootsController.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/RootsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/RootsController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/AudioManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/AudioManager.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
