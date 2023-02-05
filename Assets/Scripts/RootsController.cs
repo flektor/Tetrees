@@ -193,6 +193,7 @@ namespace GGJ23
 
         private void PlaySound(AudioClip clip)
         {
+            _audioSource.Stop();
             _audioSource.clip = clip;
             _audioSource.Play();
         }
