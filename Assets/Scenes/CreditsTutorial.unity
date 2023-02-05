@@ -1973,18 +1973,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'How to play:
-
-    Click to place roots, reach all water pockets
-
-    If
-    time runs out, yellow roots go bad
-
-
-    Game by:
-
-    Dominik, Georgios, Jonathan,
-    Ricardo'
+  m_text: "How to play:\nClick to place roots, reach all water pockets\nIf time runs
+    out, yellow roots go bad. \nSpace button puts the current piece on hold.\n\nGame
+    by:\nDominik, Georgios, Jonathan, Ricardo"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 406583d8821eb4fdbb57c72924e374aa, type: 2}
   m_sharedMaterial: {fileID: 5694208980955593448, guid: 406583d8821eb4fdbb57c72924e374aa, type: 2}
