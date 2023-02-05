@@ -15,18 +15,16 @@ namespace GGJ23
         [SerializeField] private Material _barkMaterial;
         [SerializeField] private Material _highlightMaterial;
         [SerializeField] private Material _floatingMaterial;
+        [SerializeField] private Camera _camera;
 
         private List<RootConnection> _openConnections = new();
         private readonly List<RootConnection> _newConnections = new();
         private List<WaterPocket> _waterPockets;
 
         private Root _currentRoot;
-        private Camera _camera;
 
         private void Start()
         {
-            _camera = Camera.main;
-            
             _openConnections = FindObjectsOfType<RootConnection>().ToList();
             _openConnections.ForEach(c => c.EnableConnection());
 
@@ -40,8 +38,8 @@ namespace GGJ23
             if (Input.mouseScrollDelta.y != 0)
             {
                 Zoom(Input.mouseScrollDelta.y);
-            }   
-            
+            }
+
             if (_currentRoot)
             {
                 _currentRoot.HandleUpdate(_openConnections, _snapThreshold, out var placementState);
@@ -57,7 +55,7 @@ namespace GGJ23
         {
             var mouseWorldPosStart = _camera.ScreenToWorldPoint(Input.mousePosition);
             _camera.orthographicSize -= zoom;
-            
+
             var mouseWorldPosDiff = mouseWorldPosStart - _camera.ScreenToWorldPoint(Input.mousePosition);
             _camera.transform.position += mouseWorldPosDiff;
         }
@@ -85,7 +83,7 @@ namespace GGJ23
                 SpawnRoot();
             }
         }
-        
+
         private void SpawnRoot()
         {
             if (_rootPrefabs.Count <= 0)
@@ -100,16 +98,9 @@ namespace GGJ23
         {
             var nodePrefab = _rootPrefabs[Random.Range(0, _rootPrefabs.Count)];
             _currentRoot = Instantiate(nodePrefab, new Vector3(10000, 0, 0), Quaternion.identity);
-            _currentRoot.highlightMaterial = _highlightMaterial;
-            _currentRoot.floatingMaterial = _floatingMaterial;
-            _currentRoot.SetMaterial(_floatingMaterial);
-            var flip = Random.Range(0f, 1f) > 0.5f;
-            if (flip)
-            {
-                _currentRoot.transform.localScale = new Vector3(-1, 1, 1);
-            }
+            _currentRoot.Init(_camera, _highlightMaterial, _floatingMaterial);
         }
-        
+
         private bool CheckForReachedWater(out WaterPocket result)
         {
             foreach (var waterPocket in _waterPockets)
@@ -139,6 +130,5 @@ namespace GGJ23
                 LevelSelectScreen.StartLevel(nextLevel);
             }
         }
-
     }
 }

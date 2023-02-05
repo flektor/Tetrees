@@ -17,19 +17,28 @@ namespace GGJ23
             Locked
         }
 
-        public Material floatingMaterial;
-        public Material highlightMaterial;
-
         public RootConnection snappedConnection;
-
         public RootConnection[] outgoingConnections;
 
         private PlacementState _placementState;
-
         private IEnumerable<MeshRenderer> _meshRenderers;
-
-        private List<Collider2D> _collisions = new();
+        private readonly List<Collider2D> _collisions = new();
         private Camera _camera;
+        private Material _floatingMaterial;
+        private Material _highlightMaterial;
+
+        public void Init(Camera cam, Material highlight, Material floating)
+        {
+            _camera = cam;
+            _highlightMaterial = highlight;
+            _floatingMaterial = floating;
+            SetMaterial(floating);
+            var flip = Random.Range(0f, 1f) > 0.5f;
+            if (flip)
+            {
+                transform.localScale = new Vector3(-1, 1, 1);
+            }
+        }
 
         private void Awake()
         {
@@ -44,8 +53,6 @@ namespace GGJ23
             SetCollidersLayer(OBSTACLE_LAYER);
 
             _meshRenderers = GetComponentsInChildren<MeshRenderer>().Where(o => o.gameObject.layer != UI_LAYER);
-            
-            _camera = Camera.main;
         }
 
         public void HandleUpdate(List<RootConnection> openConnections, float threshold,
@@ -83,7 +90,7 @@ namespace GGJ23
             Vector3 delta = mouseWorldPos - (Vector2) transform.position;
             var angle = Vector3.SignedAngle(Vector3.down, delta, Vector3.forward);
             transform.rotation = Quaternion.Euler(0, 0, angle);
-            
+
             foreach (var newConnection in outgoingConnections)
             {
                 bool IsNotVisible(RootConnection c)
@@ -178,7 +185,7 @@ namespace GGJ23
             _collisions.Add(col);
             if (_collisions.Count == 1)
             {
-                SetMaterial(highlightMaterial);
+                SetMaterial(_highlightMaterial);
             }
         }
 
@@ -193,7 +200,7 @@ namespace GGJ23
             _collisions.Remove(other);
             if (_collisions.Count == 0)
             {
-                SetMaterial(floatingMaterial);
+                SetMaterial(_floatingMaterial);
             }
         }
 
