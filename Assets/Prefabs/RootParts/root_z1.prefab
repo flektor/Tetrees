@@ -57,8 +57,8 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.02707982, y: 0.8781414}
-      - {x: -0.56191254, y: 0.92120504}
+    - - {x: -0.032344818, y: 0.49379444}
+      - {x: -0.55138254, y: 0.51053333}
       - {x: -0.55839974, y: -0.7200148}
       - {x: -0.6006541, y: -1.8622556}
       - {x: -0.61991405, y: -2.088481}
@@ -80,7 +80,7 @@ PolygonCollider2D:
       - {x: -0.39127016, y: -3.3016334}
       - {x: 0.3334558, y: -2.3012218}
       - {x: 0.47269642, y: -1.262603}
-      - {x: 0.5042403, y: 0.93862146}
+      - {x: 0.4779153, y: 0.4963593}
 --- !u!1 &5354267677172892740
 GameObject:
   m_ObjectHideFlags: 0
@@ -127,7 +127,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floatingMaterial: {fileID: 0}
-  barkMaterial: {fileID: 0}
   highlightMaterial: {fileID: 0}
   snappedConnection: {fileID: 0}
   outgoingConnections:

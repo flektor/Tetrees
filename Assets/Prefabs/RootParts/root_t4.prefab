@@ -46,7 +46,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floatingMaterial: {fileID: 0}
-  barkMaterial: {fileID: 0}
   highlightMaterial: {fileID: 0}
   snappedConnection: {fileID: 0}
   outgoingConnections:
@@ -147,8 +146,8 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0, y: 1}
-      - {x: -0.5279799, y: 0.9532459}
+    - - {x: 0.19076538, y: 0.4658537}
+      - {x: -0.18459994, y: 0.34279132}
       - {x: -0.09259552, y: -0.38113344}
       - {x: 0.0027809143, y: -1.308722}
       - {x: -0.9151573, y: -2.589635}
@@ -174,7 +173,7 @@ PolygonCollider2D:
       - {x: 0.13999557, y: -2.6191063}
       - {x: 1.0493584, y: -1.3284087}
       - {x: 0.91951525, y: -0.12151933}
-      - {x: 0.54721165, y: 1.034977}
+      - {x: 0.47090435, y: 0.53898335}
 --- !u!1001 &1188324699028154266
 PrefabInstance:
   m_ObjectHideFlags: 0
