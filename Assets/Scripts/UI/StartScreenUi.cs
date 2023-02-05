@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace GGJ23.UI
@@ -26,8 +27,7 @@ namespace GGJ23.UI
 
             tutorialButton.onClick.AddListener(() =>
             {
-                HideGroup(startCanvasGroup);
-                ShowGroup(tutorialCanvasGroup);
+                SceneManager.LoadScene("CreditsTutorial");
             });
         }
 
