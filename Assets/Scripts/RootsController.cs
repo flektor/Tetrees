@@ -16,6 +16,10 @@ namespace GGJ23
         [SerializeField] private CameraController _cameraController;
         [SerializeField] private GameObject _snapVfx;
         [SerializeField] private GameObject _timeoutVfx;
+        [SerializeField] private AudioSource _audioSource;
+        
+        [SerializeField] private AudioClip _placeSound;  
+        [SerializeField] private AudioClip _winSound;
         
         private List<RootConnection> _openConnections = new();
         private readonly List<RootConnection> _newConnections = new();
@@ -67,6 +71,7 @@ namespace GGJ23
             _openConnections.AddRange(_newConnections);
             _newConnections.Clear();
             _currentRoot.SpawnPlaceVfx(_snapVfx);
+            PlaySound(_placeSound);
 
             if (CheckForReachedWater(out var waterPocket))
             {
@@ -119,15 +124,18 @@ namespace GGJ23
                 StartCoroutine(VictoryRoutine());
             }
         }
-        
-        private void PlaySound()
-        {
-        }
 
         private IEnumerator VictoryRoutine()
         {
-            yield return new WaitForSeconds(1);
+            PlaySound(_winSound);
+            yield return new WaitForSeconds(2);
             SceneManager.LoadScene("StartScreen");
+        }
+        
+        private void PlaySound(AudioClip clip)
+        {
+            _audioSource.clip = clip;
+            _audioSource.Play();
         }
     }
 }
