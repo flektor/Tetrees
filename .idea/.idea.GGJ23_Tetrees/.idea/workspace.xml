@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="c8351354-30b8-4123-a487-31f1f72b8f7b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.GGJ23_Tetrees/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GGJ23_Tetrees/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Level_01.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Level_01.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/RootsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/RootsController.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -117,26 +116,26 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/Scripts/RootsController.cs</url>
-          <line>26</line>
+          <line>27</line>
           <properties documentPath="D:\Projects\GGJ23_Tetrees\Assets\Scripts\RootsController.cs" initialLine="25" containingFunctionPresentation="method 'Start'">
             <startOffsets>
-              <option value="841" />
+              <option value="868" />
             </startOffsets>
             <endOffsets>
-              <option value="888" />
+              <option value="915" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/Scripts/RootsController.cs</url>
-          <line>81</line>
+          <line>85</line>
           <properties documentPath="D:\Projects\GGJ23_Tetrees\Assets\Scripts\RootsController.cs" initialLine="73" containingFunctionPresentation="method 'SpawnRoot'">
             <startOffsets>
-              <option value="2527" />
+              <option value="2653" />
             </startOffsets>
             <endOffsets>
-              <option value="2552" />
+              <option value="2678" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="4" />
