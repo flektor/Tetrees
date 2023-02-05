@@ -103,12 +103,15 @@ namespace GGJ23
                 PlaySound(_timoutSound);
             }
 
-            if (_removeRootCurrentTime <= -0.3f && _timeOutRoot)
+            if (_removeRootCurrentTime <= -0.3f)
             {
                 _canPlayTimerSound = true;
                 _removeRootCurrentTime = _removeRootTime;
-                _timeOutRoot.InitConnection();
-                _openConnections.Remove(_timeOutRoot);
+                if(_timeOutRoot)
+                {
+                    _timeOutRoot.InitConnection();
+                    _openConnections.Remove(_timeOutRoot);
+                }
 
                 if (_currentRoot.snappedConnection == _timeOutRoot)
                 {

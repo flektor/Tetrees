@@ -2,9 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c8351354-30b8-4123-a487-31f1f72b8f7b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Audio/STGR_Fail_2.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Audio/STGR_Fail_2.wav.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/RootsController.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/RootsController.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/RootsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/RootsController.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
