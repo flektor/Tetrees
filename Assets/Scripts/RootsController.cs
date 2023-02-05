@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using GGJ23.UI;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
 namespace GGJ23
@@ -16,19 +18,19 @@ namespace GGJ23
 
         private List<RootConnection> _openConnections = new();
         private readonly List<RootConnection> _newConnections = new();
+        private List<WaterPocket> _waterPockets;
 
         private Root _currentRoot;
         private Camera _camera;
-        
-        private Vector3 _initialCameraPosition;
 
         private void Start()
         {
             _camera = Camera.main;
-            _initialCameraPosition = _camera.transform.position;
             
             _openConnections = FindObjectsOfType<RootConnection>().ToList();
             _openConnections.ForEach(c => c.EnableConnection());
+
+            _waterPockets = FindObjectsOfType<WaterPocket>().ToList();
 
             CreateNewRoot();
         }
@@ -68,10 +70,22 @@ namespace GGJ23
             _newConnections.ForEach(c => c.EnableConnection());
             _openConnections.AddRange(_newConnections);
             _newConnections.Clear();
-            _newConnections.AddRange(_currentRoot.outgoingConnections);
-            SpawnRoot();
-        }
 
+            if (CheckForReachedWater(out var waterPocket))
+            {
+                RemoveWaterPocketAndCheckIfWon(waterPocket);
+            }
+            else
+            {
+                _newConnections.AddRange(_currentRoot.outgoingConnections);
+            }
+
+            if (_waterPockets.Count > 0)
+            {
+                SpawnRoot();
+            }
+        }
+        
         private void SpawnRoot()
         {
             if (_rootPrefabs.Count <= 0)
@@ -95,5 +109,36 @@ namespace GGJ23
                 _currentRoot.transform.localScale = new Vector3(-1, 1, 1);
             }
         }
+        
+        private bool CheckForReachedWater(out WaterPocket result)
+        {
+            foreach (var waterPocket in _waterPockets)
+            {
+                var waterBounds = waterPocket.GetComponent<Renderer>().bounds;
+                foreach (var outgoing in _currentRoot.outgoingConnections)
+                {
+                    if (waterBounds.Intersects(outgoing.GetComponentInChildren<Renderer>().bounds))
+                    {
+                        result = waterPocket;
+                        return true;
+                    }
+                }
+            }
+
+            result = null;
+            return false;
+        }
+
+        private void RemoveWaterPocketAndCheckIfWon(WaterPocket waterPocket)
+        {
+            _waterPockets.Remove(waterPocket);
+            if (_waterPockets.Count == 0)
+            {
+                Debug.Log("WON");
+                var nextLevel = int.Parse(SceneManager.GetActiveScene().name.Substring("Level_".Length)) + 1;
+                LevelSelectScreen.StartLevel(nextLevel);
+            }
+        }
+
     }
 }
