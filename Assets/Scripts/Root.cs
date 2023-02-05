@@ -128,17 +128,23 @@ namespace GGJ23
             snappedConnection = null;
             var currentPos = _camera.GetMouseWorldPos();
 
+            float distanceToClosestConnection = float.MaxValue;
+            
             foreach (var openConnection in openConnections)
             {
                 var delta = currentPos - openConnection.transform.position;
-                if (delta.sqrMagnitude < threshold)
+                var approxDistance = delta.sqrMagnitude;
+                if (approxDistance < threshold)
                 {
-                    snappedConnection = openConnection;
-                    return true;
+                    if (!snappedConnection || approxDistance < distanceToClosestConnection)
+                    {
+                        snappedConnection = openConnection;
+                        distanceToClosestConnection = approxDistance;
+                    }
                 }
             }
 
-            return false;
+            return snappedConnection;
         }
 
         public void HandleBackToDrag(List<RootConnection> openConnections, float unSnapThreshold)
