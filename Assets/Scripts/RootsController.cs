@@ -22,6 +22,7 @@ namespace GGJ23
 
         [SerializeField] private TMP_Text _youWinText;
         [SerializeField] private TMP_Text _youLoseText;
+        [SerializeField] private TMP_Text _waterProgressText;
         [SerializeField] private Image _timerProgressBar;
 
         [SerializeField] private GameObject _timerCanvas;
@@ -49,6 +50,8 @@ namespace GGJ23
 
         private RootConnection _timeOutRoot;
 
+        private int _waterPocketsToReach;
+
         private void Start()
         {
             _rootSpawner = FindObjectOfType<RootSpawner>();
@@ -63,6 +66,9 @@ namespace GGJ23
                 p.z = 2.3f;
                 wt.position = p;
             });
+
+            _waterPocketsToReach = _waterPockets.Count;
+            UpdateProgressLabel();
 
             _removeRootCurrentTime = _removeRootTime;
 
@@ -91,6 +97,11 @@ namespace GGJ23
                     PlaceRoot();
                 }
             }
+        }
+
+        private void UpdateProgressLabel()
+        {
+            _waterProgressText.text = $"{(_waterPocketsToReach-_waterPockets.Count)}/{_waterPocketsToReach}";
         }
 
         private void UpdateRootTimer()
@@ -209,6 +220,7 @@ namespace GGJ23
         private void RemoveWaterPocketAndCheckIfWon(WaterPocket waterPocket)
         {
             _waterPockets.Remove(waterPocket);
+            UpdateProgressLabel();
             if (_waterPockets.Count == 0)
             {
                 Debug.Log("WON");
