@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using GGJ23.UI;
 using UnityEngine;
@@ -22,6 +23,7 @@ namespace GGJ23
 
         private Root _currentRoot;
         private RootSpawner _rootSpawner;
+        private bool _won;
 
         private void Start()
         {
@@ -43,6 +45,7 @@ namespace GGJ23
 
         private void Update()
         {
+            if (_won) return;
             if (_currentRoot)
             {
                 _currentRoot.HandleUpdate(_openConnections, _snapThreshold, out var placementState);
@@ -56,6 +59,7 @@ namespace GGJ23
 
         private void PlaceRoot()
         {
+            if (_won) return;
             _currentRoot.SetMaterial(_barkMaterial);
             _currentRoot.snappedConnection.DisableConnection();
             _openConnections.Remove(_currentRoot.snappedConnection);
@@ -73,7 +77,7 @@ namespace GGJ23
                 _newConnections.AddRange(_currentRoot.outgoingConnections);
             }
 
-            if (_waterPockets.Count > 0)
+            if (!_won && _waterPockets.Count > 0)
             {
                 SpawnRoot();
             }
@@ -81,6 +85,7 @@ namespace GGJ23
 
         private void SpawnRoot()
         {
+            if (_won) return;
             _currentRoot = _rootSpawner.SpawnRoot();
             _currentRoot.Init(_cameraController, _highlightMaterial, _floatingMaterial);
         }
@@ -110,14 +115,19 @@ namespace GGJ23
             if (_waterPockets.Count == 0)
             {
                 Debug.Log("WON");
-                var nextLevel = int.Parse(SceneManager.GetActiveScene().name.Substring("Level_".Length)) + 1;
-                LevelSelectScreen.StartLevel(nextLevel);
+                _won = true;
+                StartCoroutine(VictoryRoutine());
             }
         }
-
+        
         private void PlaySound()
         {
-            
+        }
+
+        private IEnumerator VictoryRoutine()
+        {
+            yield return new WaitForSeconds(1);
+            SceneManager.LoadScene("StartScreen");
         }
     }
 }
