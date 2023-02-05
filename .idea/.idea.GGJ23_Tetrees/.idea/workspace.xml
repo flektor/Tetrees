@@ -3,7 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="c8351354-30b8-4123-a487-31f1f72b8f7b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.GGJ23_Tetrees/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GGJ23_Tetrees/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Scenario.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Scenario.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Tip.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Tip.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Root.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Root.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/RootConnection.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/RootConnection.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/RootsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/RootsController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/LevelSelectScreen.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/LevelSelectScreen.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -116,26 +121,26 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/Scripts/RootsController.cs</url>
-          <line>27</line>
+          <line>34</line>
           <properties documentPath="D:\Projects\GGJ23_Tetrees\Assets\Scripts\RootsController.cs" initialLine="25" containingFunctionPresentation="method 'Start'">
             <startOffsets>
-              <option value="868" />
+              <option value="1141" />
             </startOffsets>
             <endOffsets>
-              <option value="915" />
+              <option value="1188" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/Scripts/RootsController.cs</url>
-          <line>85</line>
+          <line>142</line>
           <properties documentPath="D:\Projects\GGJ23_Tetrees\Assets\Scripts\RootsController.cs" initialLine="73" containingFunctionPresentation="method 'SpawnRoot'">
             <startOffsets>
-              <option value="2653" />
+              <option value="4471" />
             </startOffsets>
             <endOffsets>
-              <option value="2678" />
+              <option value="4496" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="4" />

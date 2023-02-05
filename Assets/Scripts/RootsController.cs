@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using GGJ23.UI;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -13,7 +13,10 @@ namespace GGJ23
         [SerializeField] private Material _barkMaterial;
         [SerializeField] private Material _highlightMaterial;
         [SerializeField] private Material _floatingMaterial;
+        [SerializeField] private Material _timeoutMaterial;
         [SerializeField] private CameraController _cameraController;
+        [SerializeField] private float _removeRootTime;
+        [SerializeField] private TMP_Text _removeRootTimerLabel;
         [SerializeField] private GameObject _snapVfx;
         [SerializeField] private GameObject _timeoutVfx;
         [SerializeField] private AudioSource _audioSource;
@@ -27,7 +30,11 @@ namespace GGJ23
 
         private Root _currentRoot;
         private RootSpawner _rootSpawner;
-        private bool _won;
+        private bool _pause;
+
+        private float _removeRootCurrentTime;
+
+        private RootConnection _timeOutRoot;
 
         private void Start()
         {
@@ -44,12 +51,19 @@ namespace GGJ23
                 wt.position = p;
             });
 
+            _removeRootCurrentTime = _removeRootTime;
+            
+            PickNewTimeOutRoot();
+
             SpawnRoot();
         }
 
         private void Update()
         {
-            if (_won) return;
+            if (_pause) return;
+
+            UpdateRootTimer();
+
             if (_currentRoot)
             {
                 _currentRoot.HandleUpdate(_openConnections, _snapThreshold, out var placementState);
@@ -61,12 +75,57 @@ namespace GGJ23
             }
         }
 
+        private void UpdateRootTimer()
+        {
+            _removeRootCurrentTime -= Time.deltaTime;
+            _removeRootTimerLabel.text = $"Root time: {Mathf.RoundToInt(_removeRootCurrentTime)}";
+
+            if (_removeRootCurrentTime <= -0.5f && _timeOutRoot)
+            {
+                _removeRootCurrentTime = _removeRootTime;
+                _timeOutRoot.InitConnection();
+                _openConnections.Remove(_timeOutRoot);
+
+                if (_currentRoot.snappedConnection == _timeOutRoot)
+                {
+                    _currentRoot.HandleBackToDrag(_openConnections, _snapThreshold);
+                }
+
+                if (_openConnections.Count <= 0)
+                {
+                    _pause = true;
+                    StartCoroutine(LoseRoutine());
+                }
+                else
+                {
+                    PickNewTimeOutRoot();
+                }
+            }
+        }
+
+        private void PickNewTimeOutRoot()
+        {
+            if (_openConnections.Count <= 0)
+            {
+                _timeOutRoot = null;
+                return;
+            }
+            _timeOutRoot = _openConnections[Random.Range(0, _openConnections.Count)];
+            _timeOutRoot.SetGizmoMaterial(_timeoutMaterial);
+        }
+
         private void PlaceRoot()
         {
-            if (_won) return;
+            if (_pause) return;
             _currentRoot.SetMaterial(_barkMaterial);
             _currentRoot.snappedConnection.DisableConnection();
             _openConnections.Remove(_currentRoot.snappedConnection);
+
+            if (_currentRoot.snappedConnection == _timeOutRoot)
+            {
+                PickNewTimeOutRoot();
+            }
+            
             _newConnections.ForEach(c => c.EnableConnection());
             _openConnections.AddRange(_newConnections);
             _newConnections.Clear();
@@ -82,7 +141,7 @@ namespace GGJ23
                 _newConnections.AddRange(_currentRoot.outgoingConnections);
             }
 
-            if (!_won && _waterPockets.Count > 0)
+            if (!_pause && _waterPockets.Count > 0)
             {
                 SpawnRoot();
             }
@@ -90,7 +149,7 @@ namespace GGJ23
 
         private void SpawnRoot()
         {
-            if (_won) return;
+            if (_pause) return;
             _currentRoot = _rootSpawner.SpawnRoot();
             _currentRoot.Init(_cameraController, _highlightMaterial, _floatingMaterial);
         }
@@ -120,7 +179,7 @@ namespace GGJ23
             if (_waterPockets.Count == 0)
             {
                 Debug.Log("WON");
-                _won = true;
+                _pause = true;
                 StartCoroutine(VictoryRoutine());
             }
         }
@@ -131,11 +190,17 @@ namespace GGJ23
             yield return new WaitForSeconds(2);
             SceneManager.LoadScene("StartScreen");
         }
-        
+
         private void PlaySound(AudioClip clip)
         {
             _audioSource.clip = clip;
             _audioSource.Play();
+        }
+
+        private IEnumerator LoseRoutine()
+        {
+            yield return new WaitForSeconds(1);
+            SceneManager.LoadScene("StartScreen");
         }
     }
 }
