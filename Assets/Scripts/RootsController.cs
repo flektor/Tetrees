@@ -4,6 +4,7 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace GGJ23
 {
@@ -18,13 +19,22 @@ namespace GGJ23
         [SerializeField] private float _removeRootTime;
         [SerializeField] private TMP_Text _removeRootTimerLabel;
         [SerializeField] private GameObject _snapVfx;
-        [SerializeField] private GameObject _timeoutVfx;
+
+        [SerializeField] private TMP_Text _youWinText;
+        [SerializeField] private TMP_Text _youLoseText;
+        [SerializeField] private Image _timerProgressBar;
+
+        [SerializeField] private GameObject _timerCanvas;
+
         [SerializeField] private AudioSource _audioSource;
-        
-        [SerializeField] private AudioClip _placeSound;  
+
+        [SerializeField] private AudioClip _placeSound;
         [SerializeField] private AudioClip _winSound;
         [SerializeField] private AudioClip _waterReachedSound;
+
         [SerializeField] private AudioClip _timoutSound;
+
+        [SerializeField] private AudioClip _looseSound;
         
         private List<RootConnection> _openConnections = new();
         private readonly List<RootConnection> _newConnections = new();
@@ -55,7 +65,7 @@ namespace GGJ23
             });
 
             _removeRootCurrentTime = _removeRootTime;
-            
+
             PickNewTimeOutRoot();
 
             SpawnRoot();
@@ -81,15 +91,19 @@ namespace GGJ23
         private void UpdateRootTimer()
         {
             _removeRootCurrentTime -= Time.deltaTime;
-            _removeRootTimerLabel.text = $"Root time: {Mathf.RoundToInt(_removeRootCurrentTime)}";
+            _removeRootTimerLabel.text = $"{Mathf.RoundToInt(_removeRootCurrentTime)}";
+            _timerProgressBar.fillAmount = (_removeRootCurrentTime / _removeRootTime);
+
+            var pos = _timeOutRoot ? _timeOutRoot.transform.position + new Vector3(0, 0, -5) : new Vector3(1000, 0, 0);
+            _timerCanvas.transform.position = pos;
 
             if (_removeRootCurrentTime <= 1.4f && _canPlayTimerSound)
             {
                 _canPlayTimerSound = false;
                 PlaySound(_timoutSound);
             }
-            
-            if (_removeRootCurrentTime <= -0.5f && _timeOutRoot)
+
+            if (_removeRootCurrentTime <= -0.3f && _timeOutRoot)
             {
                 _canPlayTimerSound = true;
                 _removeRootCurrentTime = _removeRootTime;
@@ -120,6 +134,7 @@ namespace GGJ23
                 _timeOutRoot = null;
                 return;
             }
+
             _timeOutRoot = _openConnections[Random.Range(0, _openConnections.Count)];
             _timeOutRoot.SetGizmoMaterial(_timeoutMaterial);
         }
@@ -135,7 +150,7 @@ namespace GGJ23
             {
                 PickNewTimeOutRoot();
             }
-            
+
             _newConnections.ForEach(c => c.EnableConnection());
             _openConnections.AddRange(_newConnections);
             _newConnections.Clear();
@@ -192,16 +207,18 @@ namespace GGJ23
                 _pause = true;
                 StartCoroutine(VictoryRoutine());
             }
-            else
-            {
-                PlaySound(_waterReachedSound);
-            }
+        }
+
+        private void PlaySound()
+        {
+            PlaySound(_waterReachedSound);
         }
 
         private IEnumerator VictoryRoutine()
         {
+            _youWinText.gameObject.SetActive(true);
             PlaySound(_winSound);
-            yield return new WaitForSeconds(2);
+            yield return new WaitForSeconds(3f);
             SceneManager.LoadScene("StartScreen");
         }
 
@@ -212,7 +229,9 @@ namespace GGJ23
 
         private IEnumerator LoseRoutine()
         {
-            yield return new WaitForSeconds(2);
+            _youLoseText.gameObject.SetActive(true);
+            PlaySound(_looseSound);
+            yield return new WaitForSeconds(3f);
             SceneManager.LoadScene("StartScreen");
         }
     }
