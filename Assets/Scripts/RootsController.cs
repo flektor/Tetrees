@@ -227,11 +227,10 @@ namespace GGJ23
                 _pause = true;
                 StartCoroutine(VictoryRoutine());
             }
-        }
-
-        private void PlaySound()
-        {
-            PlaySound(_waterReachedSound);
+            else
+            {
+                PlaySound(_waterReachedSound);
+            }
         }
 
         private IEnumerator VictoryRoutine()
