@@ -14,7 +14,7 @@ namespace GGJ23
         {
             _backButton.onClick.AddListener(() =>
             {
-                SceneManager.LoadScene("StartScreen");
+                SceneManager.LoadScene(0);
             });
         }
     }
