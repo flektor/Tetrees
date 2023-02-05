@@ -57,8 +57,8 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.0048077106, y: 0.8750005}
-      - {x: -0.513558, y: 1.001322}
+    - - {x: 0.004808426, y: 0.38789654}
+      - {x: -0.5835057, y: 0.16655803}
       - {x: -0.544516, y: -0.88593996}
       - {x: -1.4533257, y: -1.7666407}
       - {x: -2.5988266, y: -3.773544}
@@ -75,7 +75,7 @@ PolygonCollider2D:
       - {x: 0.31145525, y: -2.5558376}
       - {x: 0.4744842, y: -1.4043217}
       - {x: 0.5349008, y: -0.89555526}
-      - {x: 0.54721165, y: 0.9917068}
+      - {x: 0.4422884, y: 0.22666496}
 --- !u!1 &2120641056151229079
 GameObject:
   m_ObjectHideFlags: 0
@@ -158,7 +158,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floatingMaterial: {fileID: 0}
-  barkMaterial: {fileID: 0}
   highlightMaterial: {fileID: 0}
   snappedConnection: {fileID: 0}
   outgoingConnections:
@@ -170,6 +169,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 711820449838064892}
     m_Modifications:
+    - target: {fileID: 1340832553225741727, guid: 4b3dd086389a7a048ba5ff21498561f6, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1860066596869685029, guid: 4b3dd086389a7a048ba5ff21498561f6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
