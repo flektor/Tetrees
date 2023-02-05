@@ -18,7 +18,7 @@ namespace GGJ23.UI
             }
         }
 
-        private void StartLevel(int level)
+        public static void StartLevel(int level)
         {
             SceneManager.LoadScene(level, LoadSceneMode.Single);
             SceneManager.LoadScene(IngameUi.IngameUiSceneName, LoadSceneMode.Additive);

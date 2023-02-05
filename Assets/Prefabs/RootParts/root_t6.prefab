@@ -63,9 +63,9 @@ PolygonCollider2D:
       - {x: -2.6944466, y: 0.5020571}
       - {x: -3.367794, y: 1.1192179}
       - {x: -3.6181679, y: 1.7769575}
-      - {x: -3.5131226, y: 2.167871}
-      - {x: -4.010891, y: 1.9920821}
-      - {x: -4.5551834, y: 2.146999}
+      - {x: -3.614582, y: 1.865457}
+      - {x: -4.1123505, y: 1.8242488}
+      - {x: -4.487543, y: 1.726172}
       - {x: -4.5089645, y: 1.4656625}
       - {x: -3.9484653, y: 0.32194138}
       - {x: -2.910036, y: -0.43489552}
@@ -159,7 +159,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floatingMaterial: {fileID: 0}
-  barkMaterial: {fileID: 0}
   highlightMaterial: {fileID: 0}
   snappedConnection: {fileID: 0}
   outgoingConnections:

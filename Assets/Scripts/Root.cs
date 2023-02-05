@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -28,7 +28,8 @@ namespace GGJ23
 
         private IEnumerable<MeshRenderer> _meshRenderers;
 
-        private int _collisions = 0;
+        private List<Collider2D> _collisions = new();
+        private Camera _camera;
 
         private void Awake()
         {
@@ -43,6 +44,8 @@ namespace GGJ23
             SetCollidersLayer(OBSTACLE_LAYER);
 
             _meshRenderers = GetComponentsInChildren<MeshRenderer>().Where(o => o.gameObject.layer != UI_LAYER);
+            
+            _camera = Camera.main;
         }
 
         public void HandleUpdate(List<RootConnection> openConnections, float threshold,
@@ -59,7 +62,7 @@ namespace GGJ23
                 case PlacementState.Rotating when Input.GetMouseButtonDown(1):
                     HandleBackToDrag(openConnections, threshold);
                     break;
-                case PlacementState.Rotating when _collisions == 0 && Input.GetMouseButtonDown(0):
+                case PlacementState.Rotating when _collisions.Count == 0 && Input.GetMouseButtonDown(0):
                 {
                     LockDown();
                     break;
@@ -76,15 +79,29 @@ namespace GGJ23
 
         private void HandleRotate()
         {
-            Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 mouseWorldPos = _camera.ScreenToWorldPoint(Input.mousePosition);
             Vector3 delta = mouseWorldPos - (Vector2) transform.position;
             var angle = Vector3.SignedAngle(Vector3.down, delta, Vector3.forward);
             transform.rotation = Quaternion.Euler(0, 0, angle);
+            
+            foreach (var newConnection in outgoingConnections)
+            {
+                bool IsNotVisible(RootConnection c)
+                {
+                    var viewportPoint = _camera.WorldToViewportPoint(c.transform.position);
+                    return viewportPoint.x is < 0 or > 1 || viewportPoint.y is < 0 or > 1;
+                }
+
+                while (IsNotVisible(newConnection))
+                {
+                    _camera.orthographicSize += 2;
+                }
+            }
         }
 
         private void HandleDrag(List<RootConnection> openConnections, float snapThreshold)
         {
-            var newPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            var newPosition = _camera.ScreenToWorldPoint(Input.mousePosition);
             newPosition.z = transform.position.z;
 
             if (CloseEnoughToOpenConnection(openConnections, snapThreshold))
@@ -110,7 +127,7 @@ namespace GGJ23
         private bool CloseEnoughToOpenConnection(List<RootConnection> openConnections, float threshold)
         {
             snappedConnection = null;
-            var currentPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            var currentPos = _camera.ScreenToWorldPoint(Input.mousePosition);
             currentPos.z = 0;
 
             foreach (var openConnection in openConnections)
@@ -142,6 +159,7 @@ namespace GGJ23
 
         private void SetCollidersLayer(int layer)
         {
+            _collisions.Clear();
             var colliders = GetComponentsInChildren<Collider2D>();
             foreach (var c in colliders)
             {
@@ -151,13 +169,14 @@ namespace GGJ23
 
         private void OnTriggerEnter2D(Collider2D col)
         {
-            if (col.gameObject.layer != OBSTACLE_LAYER)
+            if (_placementState == PlacementState.Locked ||
+                col.gameObject.layer != OBSTACLE_LAYER)
             {
                 return;
             }
 
-            _collisions++;
-            if (_collisions == 1)
+            _collisions.Add(col);
+            if (_collisions.Count == 1)
             {
                 SetMaterial(highlightMaterial);
             }
@@ -165,13 +184,14 @@ namespace GGJ23
 
         private void OnTriggerExit2D(Collider2D other)
         {
-            if (other.gameObject.layer != OBSTACLE_LAYER)
+            if (_placementState == PlacementState.Locked ||
+                other.gameObject.layer != OBSTACLE_LAYER)
             {
                 return;
             }
 
-            _collisions--;
-            if (_collisions == 0)
+            _collisions.Remove(other);
+            if (_collisions.Count == 0)
             {
                 SetMaterial(floatingMaterial);
             }
