@@ -26,12 +26,14 @@ namespace GGJ23
         private CameraController _camera;
         private Material _floatingMaterial;
         private Material _highlightMaterial;
+        private Material _barkMaterial;
 
-        public void Init(CameraController cameraController, Material highlight, Material floating)
+        public void Init(CameraController cameraController, Material highlight, Material floating, Material bark)
         {
             _camera = cameraController;
             _highlightMaterial = highlight;
             _floatingMaterial = floating;
+            _barkMaterial = bark;
             SetMaterial(floating);
             var flip = Random.Range(0f, 1f) > 0.5f;
             if (flip)
@@ -209,6 +211,18 @@ namespace GGJ23
         public void SpawnTimeoutVfx(GameObject timeoutPrefab)
         {
             Instantiate(timeoutPrefab, gameObject.transform.position, Quaternion.identity);
+        }
+
+        public void PutOnHold()
+        {
+            _placementState = PlacementState.Locked;
+            SetMaterial(_barkMaterial);
+        }
+        
+        public void GetOutOfHold()
+        {
+            _placementState = PlacementState.Dragging;
+            SetMaterial(_floatingMaterial);
         }
     }
 }

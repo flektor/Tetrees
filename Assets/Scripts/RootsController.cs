@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
@@ -79,6 +79,11 @@ namespace GGJ23
 
             if (_currentRoot)
             {
+                if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    _currentRoot = _rootSpawner.HoldRoot(_currentRoot);
+                    _currentRoot.Init(_cameraController, _highlightMaterial, _floatingMaterial, _barkMaterial);
+                }
                 _currentRoot.HandleUpdate(_openConnections, _snapThreshold, out var placementState);
 
                 if (placementState == Root.PlacementState.Locked)
@@ -179,7 +184,7 @@ namespace GGJ23
         {
             if (_pause) return;
             _currentRoot = _rootSpawner.SpawnRoot();
-            _currentRoot.Init(_cameraController, _highlightMaterial, _floatingMaterial);
+            _currentRoot.Init(_cameraController, _highlightMaterial, _floatingMaterial, _barkMaterial);
         }
 
         private bool CheckForReachedWater(out WaterPocket result)
