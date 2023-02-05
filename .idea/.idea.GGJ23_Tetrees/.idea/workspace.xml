@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c8351354-30b8-4123-a487-31f1f72b8f7b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Audio/STGR_Fail_2.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Audio/STGR_Fail_2.wav.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/RootsController.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/RootsController.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/RootsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/RootsController.cs" afterDir="false" />
-    </list>
+    <list default="true" id="c8351354-30b8-4123-a487-31f1f72b8f7b" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -17,6 +12,7 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/4014a86cbefb4944b2b6c9211c8fd2fc159a00/ca/19b9c30b/LayerMask.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/TutorialScreenUi.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
