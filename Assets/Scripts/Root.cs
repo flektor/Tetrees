@@ -200,5 +200,15 @@ namespace GGJ23
                 meshRenderer.material = material;
             }
         }
+        
+        public void SpawnPlaceVfx(GameObject snapPrefab)
+        {
+            Instantiate(snapPrefab, gameObject.transform.position, Quaternion.identity);
+        }
+        
+        public void SpawnTimeoutVfx(GameObject timeoutPrefab)
+        {
+            Instantiate(timeoutPrefab, gameObject.transform.position, Quaternion.identity);
+        }
     }
 }

@@ -13,7 +13,9 @@ namespace GGJ23
         [SerializeField] private Material _highlightMaterial;
         [SerializeField] private Material _floatingMaterial;
         [SerializeField] private CameraController _cameraController;
-
+        [SerializeField] private GameObject _snapVfx;
+        [SerializeField] private GameObject _timeoutVfx;
+        
         private List<RootConnection> _openConnections = new();
         private readonly List<RootConnection> _newConnections = new();
         private List<WaterPocket> _waterPockets;
@@ -60,6 +62,7 @@ namespace GGJ23
             _newConnections.ForEach(c => c.EnableConnection());
             _openConnections.AddRange(_newConnections);
             _newConnections.Clear();
+            _currentRoot.SpawnPlaceVfx(_snapVfx);
 
             if (CheckForReachedWater(out var waterPocket))
             {
@@ -110,6 +113,11 @@ namespace GGJ23
                 var nextLevel = int.Parse(SceneManager.GetActiveScene().name.Substring("Level_".Length)) + 1;
                 LevelSelectScreen.StartLevel(nextLevel);
             }
+        }
+
+        private void PlaySound()
+        {
+            
         }
     }
 }
