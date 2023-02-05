@@ -1279,7 +1279,7 @@ MonoBehaviour:
   m_RenderShadows: 0
   m_RequiresDepthTextureOption: 2
   m_RequiresOpaqueTextureOption: 2
-  m_CameraType: 1
+  m_CameraType: 0
   m_Cameras: []
   m_RendererIndex: -1
   m_VolumeLayerMask:
@@ -1621,7 +1621,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 868442857, guid: 94a270b039c68bd45a9c20431dc2ff1f, type: 3}
       propertyPath: m_Cameras.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 868442857, guid: 94a270b039c68bd45a9c20431dc2ff1f, type: 3}
       propertyPath: m_Cameras.Array.data[0]
