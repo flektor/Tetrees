@@ -23,6 +23,8 @@ namespace GGJ23
         
         [SerializeField] private AudioClip _placeSound;  
         [SerializeField] private AudioClip _winSound;
+        [SerializeField] private AudioClip _waterReachedSound;
+        [SerializeField] private AudioClip _timoutSound;
         
         private List<RootConnection> _openConnections = new();
         private readonly List<RootConnection> _newConnections = new();
@@ -31,6 +33,7 @@ namespace GGJ23
         private Root _currentRoot;
         private RootSpawner _rootSpawner;
         private bool _pause;
+        private bool _canPlayTimerSound = true;
 
         private float _removeRootCurrentTime;
 
@@ -80,8 +83,15 @@ namespace GGJ23
             _removeRootCurrentTime -= Time.deltaTime;
             _removeRootTimerLabel.text = $"Root time: {Mathf.RoundToInt(_removeRootCurrentTime)}";
 
+            if (_removeRootCurrentTime <= 1.4f && _canPlayTimerSound)
+            {
+                _canPlayTimerSound = false;
+                PlaySound(_timoutSound);
+            }
+            
             if (_removeRootCurrentTime <= -0.5f && _timeOutRoot)
             {
+                _canPlayTimerSound = true;
                 _removeRootCurrentTime = _removeRootTime;
                 _timeOutRoot.InitConnection();
                 _openConnections.Remove(_timeOutRoot);
@@ -182,6 +192,10 @@ namespace GGJ23
                 _pause = true;
                 StartCoroutine(VictoryRoutine());
             }
+            else
+            {
+                PlaySound(_waterReachedSound);
+            }
         }
 
         private IEnumerator VictoryRoutine()
@@ -193,13 +207,12 @@ namespace GGJ23
 
         private void PlaySound(AudioClip clip)
         {
-            _audioSource.clip = clip;
-            _audioSource.Play();
+            _audioSource.PlayOneShot(clip);
         }
 
         private IEnumerator LoseRoutine()
         {
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(2);
             SceneManager.LoadScene("StartScreen");
         }
     }

@@ -274,6 +274,8 @@ MonoBehaviour:
   _audioSource: {fileID: 3541937139079528524}
   _placeSound: {fileID: 8300000, guid: 8928320b0f3624151aded84544fa1a24, type: 3}
   _winSound: {fileID: 8300000, guid: b047155542a544bc7bd6df0f3c653574, type: 3}
+  _waterReachedSound: {fileID: 8300000, guid: 7babd5d79744a412392bccaf4acab5b1, type: 3}
+  _timoutSound: {fileID: 8300000, guid: 8a8e76e43ad62472d84e637bf5e1689b, type: 3}
 --- !u!114 &8839725095065524597
 MonoBehaviour:
   m_ObjectHideFlags: 0
