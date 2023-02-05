@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c8351354-30b8-4123-a487-31f1f72b8f7b" name="Changes" comment="" />
+    <list default="true" id="c8351354-30b8-4123-a487-31f1f72b8f7b" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.GGJ23_Tetrees/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GGJ23_Tetrees/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -95,24 +97,5 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/Scripts/RootSpawner.cs</url>
-          <line>13</line>
-          <properties documentPath="D:\Projects\GGJ23_Tetrees\Assets\Scripts\RootSpawner.cs" initialLine="13" containingFunctionPresentation="method 'SpawnRoot'">
-            <startOffsets>
-              <option value="301" />
-            </startOffsets>
-            <endOffsets>
-              <option value="368" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
