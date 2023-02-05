@@ -7,7 +7,9 @@ namespace GGJ23
     {
         [SerializeField] private Camera _camera;
         [SerializeField] private float _minZoom = 10;
-        [SerializeField] private float _maxZoom = 60;
+        [SerializeField] private float _maxZoom = 60;       
+        [SerializeField] private float _minY = -5;
+        [SerializeField] private float _maxY = -40;
 
         private float _targetSize;
 
@@ -45,6 +47,10 @@ namespace GGJ23
             }
 
             _targetSize = Mathf.Clamp(_targetSize, _minZoom, _maxZoom);
+            var t = (_targetSize - _minZoom) / (_maxZoom - _minZoom);
+            var p = _camera.transform.position;
+            p.y = Mathf.Lerp(_minY, _maxY, t);
+            _camera.transform.position = p;
             _camera.orthographicSize = Mathf.Lerp(_camera.orthographicSize, _targetSize, 0.5f);
         }
 
