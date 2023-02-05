@@ -130,7 +130,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -138,7 +138,7 @@ AudioSource:
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
-  DopplerLevel: 1
+  DopplerLevel: 0
   MinDistance: 1
   MaxDistance: 500
   Pan2D: 0
@@ -265,7 +265,10 @@ MonoBehaviour:
   _barkMaterial: {fileID: 2100000, guid: 09fcef1bd7a96ae488bd5c5640ee40e7, type: 2}
   _highlightMaterial: {fileID: 2100000, guid: 51bc87d03d9997746ac36791c74686b5, type: 2}
   _floatingMaterial: {fileID: 2100000, guid: b4bd606f7f6ec9f4b97f052f2e4bbaf6, type: 2}
+  _timeoutMaterial: {fileID: 0}
   _cameraController: {fileID: 8839725095065524597}
+  _removeRootTime: 0
+  _removeRootTimerLabel: {fileID: 0}
   _snapVfx: {fileID: 6980369127251058872, guid: 6f0d7d274e2a54302ae83902f8767f5c, type: 3}
   _timeoutVfx: {fileID: 6980369127251058872, guid: 11b5a5e447c9f4ce5b9e29b73e5fc126, type: 3}
   _audioSource: {fileID: 3541937139079528524}
