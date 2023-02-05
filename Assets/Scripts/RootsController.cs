@@ -34,6 +34,8 @@ namespace GGJ23
 
         [SerializeField] private AudioClip _timoutSound;
 
+        [SerializeField] private AudioClip _looseSound;
+        
         private List<RootConnection> _openConnections = new();
         private readonly List<RootConnection> _newConnections = new();
         private List<WaterPocket> _waterPockets;
@@ -216,7 +218,7 @@ namespace GGJ23
         {
             _youWinText.gameObject.SetActive(true);
             PlaySound(_winSound);
-            yield return new WaitForSeconds(2);
+            yield return new WaitForSeconds(3f);
             SceneManager.LoadScene("StartScreen");
         }
 
@@ -228,7 +230,8 @@ namespace GGJ23
         private IEnumerator LoseRoutine()
         {
             _youLoseText.gameObject.SetActive(true);
-            yield return new WaitForSeconds(2);
+            PlaySound(_looseSound);
+            yield return new WaitForSeconds(3f);
             SceneManager.LoadScene("StartScreen");
         }
     }
