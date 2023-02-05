@@ -17,7 +17,9 @@ namespace GGJ23
         [SerializeField] private CameraController _cameraController;
         [SerializeField] private float _removeRootTime;
         [SerializeField] private TMP_Text _removeRootTimerLabel;
-
+        [SerializeField] private GameObject _snapVfx;
+        [SerializeField] private GameObject _timeoutVfx;
+        
         private List<RootConnection> _openConnections = new();
         private readonly List<RootConnection> _newConnections = new();
         private List<WaterPocket> _waterPockets;
@@ -123,6 +125,7 @@ namespace GGJ23
             _newConnections.ForEach(c => c.EnableConnection());
             _openConnections.AddRange(_newConnections);
             _newConnections.Clear();
+            _currentRoot.SpawnPlaceVfx(_snapVfx);
 
             if (CheckForReachedWater(out var waterPocket))
             {
@@ -174,6 +177,10 @@ namespace GGJ23
                 _pause = true;
                 StartCoroutine(VictoryRoutine());
             }
+        }
+        
+        private void PlaySound()
+        {
         }
 
         private IEnumerator VictoryRoutine()
