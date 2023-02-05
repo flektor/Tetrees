@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using GGJ23.UI;
 using UnityEngine;
@@ -107,9 +108,14 @@ namespace GGJ23
             if (_waterPockets.Count == 0)
             {
                 Debug.Log("WON");
-                var nextLevel = int.Parse(SceneManager.GetActiveScene().name.Substring("Level_".Length)) + 1;
-                LevelSelectScreen.StartLevel(nextLevel);
+                StartCoroutine(VictoryRoutine());
             }
+        }
+
+        private IEnumerator VictoryRoutine()
+        {
+            yield return new WaitForSeconds(1);
+            SceneManager.LoadScene("StartScreen");
         }
     }
 }
