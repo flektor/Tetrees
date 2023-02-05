@@ -14,7 +14,7 @@ namespace GGJ23
             nodeGizmo.transform.localPosition = Vector3.zero;
         }
 
-        private void InitConnection()
+        public void InitConnection()
         {
             nodeGizmo.gameObject.SetActive(false);
             mesh.gameObject.SetActive(true);
