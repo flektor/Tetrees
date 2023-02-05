@@ -23,13 +23,13 @@ namespace GGJ23
         private PlacementState _placementState;
         private IEnumerable<MeshRenderer> _meshRenderers;
         private readonly List<Collider2D> _collisions = new();
-        private Camera _camera;
+        private CameraController _camera;
         private Material _floatingMaterial;
         private Material _highlightMaterial;
 
-        public void Init(Camera cam, Material highlight, Material floating)
+        public void Init(CameraController cameraController, Material highlight, Material floating)
         {
-            _camera = cam;
+            _camera = cameraController;
             _highlightMaterial = highlight;
             _floatingMaterial = floating;
             SetMaterial(floating);
@@ -86,30 +86,20 @@ namespace GGJ23
 
         private void HandleRotate()
         {
-            Vector2 mouseWorldPos = _camera.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 mouseWorldPos = _camera.GetMouseWorldPos();
             Vector3 delta = mouseWorldPos - (Vector2) transform.position;
             var angle = Vector3.SignedAngle(Vector3.down, delta, Vector3.forward);
             transform.rotation = Quaternion.Euler(0, 0, angle);
 
             foreach (var newConnection in outgoingConnections)
             {
-                bool IsNotVisible(RootConnection c)
-                {
-                    var viewportPoint = _camera.WorldToViewportPoint(c.transform.position);
-                    return viewportPoint.x is < 0 or > 1 || viewportPoint.y is < 0 or > 1;
-                }
-
-                while (IsNotVisible(newConnection))
-                {
-                    _camera.orthographicSize += 2;
-                }
+                _camera.ZoomToFitPoint(newConnection.transform.position);
             }
         }
 
         private void HandleDrag(List<RootConnection> openConnections, float snapThreshold)
         {
-            var newPosition = _camera.ScreenToWorldPoint(Input.mousePosition);
-            newPosition.z = transform.position.z;
+            var newPosition = _camera.GetMouseWorldPos();
 
             if (CloseEnoughToOpenConnection(openConnections, snapThreshold))
             {
@@ -134,8 +124,7 @@ namespace GGJ23
         private bool CloseEnoughToOpenConnection(List<RootConnection> openConnections, float threshold)
         {
             snappedConnection = null;
-            var currentPos = _camera.ScreenToWorldPoint(Input.mousePosition);
-            currentPos.z = 0;
+            var currentPos = _camera.GetMouseWorldPos();
 
             foreach (var openConnection in openConnections)
             {

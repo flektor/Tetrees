@@ -15,7 +15,7 @@ namespace GGJ23
         [SerializeField] private Material _barkMaterial;
         [SerializeField] private Material _highlightMaterial;
         [SerializeField] private Material _floatingMaterial;
-        [SerializeField] private Camera _camera;
+        [SerializeField] private CameraController _cameraController;
 
         private List<RootConnection> _openConnections = new();
         private readonly List<RootConnection> _newConnections = new();
@@ -35,11 +35,6 @@ namespace GGJ23
 
         private void Update()
         {
-            if (Input.mouseScrollDelta.y != 0)
-            {
-                Zoom(Input.mouseScrollDelta.y);
-            }
-
             if (_currentRoot)
             {
                 _currentRoot.HandleUpdate(_openConnections, _snapThreshold, out var placementState);
@@ -49,15 +44,6 @@ namespace GGJ23
                     PlaceRoot();
                 }
             }
-        }
-
-        private void Zoom(float zoom)
-        {
-            var mouseWorldPosStart = _camera.ScreenToWorldPoint(Input.mousePosition);
-            _camera.orthographicSize -= zoom;
-
-            var mouseWorldPosDiff = mouseWorldPosStart - _camera.ScreenToWorldPoint(Input.mousePosition);
-            _camera.transform.position += mouseWorldPosDiff;
         }
 
         private void PlaceRoot()
@@ -98,7 +84,7 @@ namespace GGJ23
         {
             var nodePrefab = _rootPrefabs[Random.Range(0, _rootPrefabs.Count)];
             _currentRoot = Instantiate(nodePrefab, new Vector3(10000, 0, 0), Quaternion.identity);
-            _currentRoot.Init(_camera, _highlightMaterial, _floatingMaterial);
+            _currentRoot.Init(_cameraController, _highlightMaterial, _floatingMaterial);
         }
 
         private bool CheckForReachedWater(out WaterPocket result)
