@@ -13,6 +13,7 @@ namespace GGJ23
         [SerializeField] private Material _barkMaterial;
         [SerializeField] private Material _highlightMaterial;
         [SerializeField] private Material _floatingMaterial;
+        [SerializeField] private Material _timeoutMaterial;
         [SerializeField] private CameraController _cameraController;
         [SerializeField] private float _removeRootTime;
         [SerializeField] private TMP_Text _removeRootTimerLabel;
@@ -26,6 +27,8 @@ namespace GGJ23
         private bool _pause;
 
         private float _removeRootCurrentTime;
+
+        private RootConnection _timeOutRoot;
 
         private void Start()
         {
@@ -43,6 +46,8 @@ namespace GGJ23
             });
 
             _removeRootCurrentTime = _removeRootTime;
+            
+            PickNewTimeOutRoot();
 
             SpawnRoot();
         }
@@ -69,19 +74,38 @@ namespace GGJ23
             _removeRootCurrentTime -= Time.deltaTime;
             _removeRootTimerLabel.text = $"Root time: {Mathf.RoundToInt(_removeRootCurrentTime)}";
 
-            if (_removeRootCurrentTime <= -0.5f)
+            if (_removeRootCurrentTime <= -0.5f && _timeOutRoot)
             {
                 _removeRootCurrentTime = _removeRootTime;
-                var timeOutRoot = _openConnections[Random.Range(0, _openConnections.Count)];
-                timeOutRoot.InitConnection();
-                _openConnections.Remove(timeOutRoot);
+                _timeOutRoot.InitConnection();
+                _openConnections.Remove(_timeOutRoot);
+
+                if (_currentRoot.snappedConnection == _timeOutRoot)
+                {
+                    _currentRoot.HandleBackToDrag(_openConnections, _snapThreshold);
+                }
 
                 if (_openConnections.Count <= 0)
                 {
                     _pause = true;
                     StartCoroutine(LoseRoutine());
                 }
+                else
+                {
+                    PickNewTimeOutRoot();
+                }
             }
+        }
+
+        private void PickNewTimeOutRoot()
+        {
+            if (_openConnections.Count <= 0)
+            {
+                _timeOutRoot = null;
+                return;
+            }
+            _timeOutRoot = _openConnections[Random.Range(0, _openConnections.Count)];
+            _timeOutRoot.SetGizmoMaterial(_timeoutMaterial);
         }
 
         private void PlaceRoot()
@@ -90,6 +114,12 @@ namespace GGJ23
             _currentRoot.SetMaterial(_barkMaterial);
             _currentRoot.snappedConnection.DisableConnection();
             _openConnections.Remove(_currentRoot.snappedConnection);
+
+            if (_currentRoot.snappedConnection == _timeOutRoot)
+            {
+                PickNewTimeOutRoot();
+            }
+            
             _newConnections.ForEach(c => c.EnableConnection());
             _openConnections.AddRange(_newConnections);
             _newConnections.Clear();

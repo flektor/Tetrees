@@ -990,6 +990,14 @@ PrefabInstance:
       value: RootsController
       objectReference: {fileID: 0}
     - target: {fileID: 4871515766176120380, guid: 94a270b039c68bd45a9c20431dc2ff1f, type: 3}
+      propertyPath: _removeRootTime
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4871515766176120380, guid: 94a270b039c68bd45a9c20431dc2ff1f, type: 3}
+      propertyPath: _timeoutMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 98cb19742bd4f8a46913b095f91e68d5, type: 2}
+    - target: {fileID: 4871515766176120380, guid: 94a270b039c68bd45a9c20431dc2ff1f, type: 3}
       propertyPath: _removeRootTimerLabel
       value: 
       objectReference: {fileID: 5264733918936718023}

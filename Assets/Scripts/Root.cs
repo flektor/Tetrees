@@ -139,7 +139,7 @@ namespace GGJ23
             return false;
         }
 
-        private void HandleBackToDrag(List<RootConnection> openConnections, float unSnapThreshold)
+        public void HandleBackToDrag(List<RootConnection> openConnections, float unSnapThreshold)
         {
             _placementState = PlacementState.Dragging;
             HandleDrag(openConnections, unSnapThreshold);
