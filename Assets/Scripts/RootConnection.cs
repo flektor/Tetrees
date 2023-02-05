@@ -5,16 +5,21 @@ namespace GGJ23
     public class RootConnection : MonoBehaviour
     {
         [SerializeField] private Transform mesh;
-        [SerializeField] private Transform nodeGizmo;
+        [SerializeField] private Renderer nodeGizmo;
 
         private void Awake()
         {
             InitConnection();
-            mesh.transform.localPosition = Vector3.zero;
+            mesh.localPosition = Vector3.zero;
             nodeGizmo.transform.localPosition = Vector3.zero;
         }
 
-        private void InitConnection()
+        public void SetGizmoMaterial(Material material)
+        {
+            nodeGizmo.material = material;
+        }
+
+        public void InitConnection()
         {
             nodeGizmo.gameObject.SetActive(false);
             mesh.gameObject.SetActive(true);

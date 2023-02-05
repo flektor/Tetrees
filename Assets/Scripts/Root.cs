@@ -17,19 +17,28 @@ namespace GGJ23
             Locked
         }
 
-        public Material floatingMaterial;
-        public Material highlightMaterial;
-
         public RootConnection snappedConnection;
-
         public RootConnection[] outgoingConnections;
 
         private PlacementState _placementState;
-
         private IEnumerable<MeshRenderer> _meshRenderers;
+        private readonly List<Collider2D> _collisions = new();
+        private CameraController _camera;
+        private Material _floatingMaterial;
+        private Material _highlightMaterial;
 
-        private List<Collider2D> _collisions = new();
-        private Camera _camera;
+        public void Init(CameraController cameraController, Material highlight, Material floating)
+        {
+            _camera = cameraController;
+            _highlightMaterial = highlight;
+            _floatingMaterial = floating;
+            SetMaterial(floating);
+            var flip = Random.Range(0f, 1f) > 0.5f;
+            if (flip)
+            {
+                transform.localScale = new Vector3(-1, 1, 1);
+            }
+        }
 
         private void Awake()
         {
@@ -44,8 +53,6 @@ namespace GGJ23
             SetCollidersLayer(OBSTACLE_LAYER);
 
             _meshRenderers = GetComponentsInChildren<MeshRenderer>().Where(o => o.gameObject.layer != UI_LAYER);
-            
-            _camera = Camera.main;
         }
 
         public void HandleUpdate(List<RootConnection> openConnections, float threshold,
@@ -79,30 +86,20 @@ namespace GGJ23
 
         private void HandleRotate()
         {
-            Vector2 mouseWorldPos = _camera.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 mouseWorldPos = _camera.GetMouseWorldPos();
             Vector3 delta = mouseWorldPos - (Vector2) transform.position;
             var angle = Vector3.SignedAngle(Vector3.down, delta, Vector3.forward);
             transform.rotation = Quaternion.Euler(0, 0, angle);
-            
+
             foreach (var newConnection in outgoingConnections)
             {
-                bool IsNotVisible(RootConnection c)
-                {
-                    var viewportPoint = _camera.WorldToViewportPoint(c.transform.position);
-                    return viewportPoint.x is < 0 or > 1 || viewportPoint.y is < 0 or > 1;
-                }
-
-                while (IsNotVisible(newConnection))
-                {
-                    _camera.orthographicSize += 2;
-                }
+                _camera.ZoomToFitPoint(newConnection.transform.position);
             }
         }
 
         private void HandleDrag(List<RootConnection> openConnections, float snapThreshold)
         {
-            var newPosition = _camera.ScreenToWorldPoint(Input.mousePosition);
-            newPosition.z = transform.position.z;
+            var newPosition = _camera.GetMouseWorldPos();
 
             if (CloseEnoughToOpenConnection(openConnections, snapThreshold))
             {
@@ -127,8 +124,7 @@ namespace GGJ23
         private bool CloseEnoughToOpenConnection(List<RootConnection> openConnections, float threshold)
         {
             snappedConnection = null;
-            var currentPos = _camera.ScreenToWorldPoint(Input.mousePosition);
-            currentPos.z = 0;
+            var currentPos = _camera.GetMouseWorldPos();
 
             foreach (var openConnection in openConnections)
             {
@@ -143,7 +139,7 @@ namespace GGJ23
             return false;
         }
 
-        private void HandleBackToDrag(List<RootConnection> openConnections, float unSnapThreshold)
+        public void HandleBackToDrag(List<RootConnection> openConnections, float unSnapThreshold)
         {
             _placementState = PlacementState.Dragging;
             HandleDrag(openConnections, unSnapThreshold);
@@ -178,7 +174,7 @@ namespace GGJ23
             _collisions.Add(col);
             if (_collisions.Count == 1)
             {
-                SetMaterial(highlightMaterial);
+                SetMaterial(_highlightMaterial);
             }
         }
 
@@ -193,7 +189,7 @@ namespace GGJ23
             _collisions.Remove(other);
             if (_collisions.Count == 0)
             {
-                SetMaterial(floatingMaterial);
+                SetMaterial(_floatingMaterial);
             }
         }
 
@@ -203,6 +199,16 @@ namespace GGJ23
             {
                 meshRenderer.material = material;
             }
+        }
+        
+        public void SpawnPlaceVfx(GameObject snapPrefab)
+        {
+            Instantiate(snapPrefab, gameObject.transform.position, Quaternion.identity);
+        }
+        
+        public void SpawnTimeoutVfx(GameObject timeoutPrefab)
+        {
+            Instantiate(timeoutPrefab, gameObject.transform.position, Quaternion.identity);
         }
     }
 }

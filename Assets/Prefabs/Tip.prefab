@@ -108,7 +108,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mesh: {fileID: 1860066596869685029}
-  nodeGizmo: {fileID: 7540884646124827597}
+  nodeGizmo: {fileID: 333686810416078048}
 --- !u!1 &5848106496961714468
 GameObject:
   m_ObjectHideFlags: 0
