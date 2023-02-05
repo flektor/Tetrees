@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using GGJ23.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Random = UnityEngine.Random;
 
 namespace GGJ23
 {
     public class RootsController : MonoBehaviour
     {
-        [SerializeField] private List<Root> _rootPrefabs = new();
         [SerializeField] private float _snapThreshold;
         [SerializeField] private Material _barkMaterial;
         [SerializeField] private Material _highlightMaterial;
@@ -22,15 +19,24 @@ namespace GGJ23
         private List<WaterPocket> _waterPockets;
 
         private Root _currentRoot;
+        private RootSpawner _rootSpawner;
 
         private void Start()
         {
+            _rootSpawner = FindObjectOfType<RootSpawner>();
             _openConnections = FindObjectsOfType<RootConnection>().ToList();
             _openConnections.ForEach(c => c.EnableConnection());
 
             _waterPockets = FindObjectsOfType<WaterPocket>().ToList();
+            _waterPockets.ForEach(w =>
+            {
+                var wt = w.transform;
+                var p = wt.position;
+                p.z = 2.3f;
+                wt.position = p;
+            });
 
-            CreateNewRoot();
+            SpawnRoot();
         }
 
         private void Update()
@@ -72,18 +78,7 @@ namespace GGJ23
 
         private void SpawnRoot()
         {
-            if (_rootPrefabs.Count <= 0)
-            {
-                throw new Exception("Root prefabs not configured for this level");
-            }
-
-            CreateNewRoot();
-        }
-
-        private void CreateNewRoot()
-        {
-            var nodePrefab = _rootPrefabs[Random.Range(0, _rootPrefabs.Count)];
-            _currentRoot = Instantiate(nodePrefab, new Vector3(10000, 0, 0), Quaternion.identity);
+            _currentRoot = _rootSpawner.SpawnRoot();
             _currentRoot.Init(_cameraController, _highlightMaterial, _floatingMaterial);
         }
 

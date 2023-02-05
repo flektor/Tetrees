@@ -44,6 +44,7 @@ namespace GGJ23
                 Zoom(Input.mouseScrollDelta.y);
             }
 
+            _targetSize = Mathf.Clamp(_targetSize, _minZoom, _maxZoom);
             _camera.orthographicSize = Mathf.Lerp(_camera.orthographicSize, _targetSize, 0.5f);
         }
 
