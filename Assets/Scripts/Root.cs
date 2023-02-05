@@ -28,7 +28,7 @@ namespace GGJ23
 
         private IEnumerable<MeshRenderer> _meshRenderers;
 
-        private int _collisions = 0;
+        private List<Collider2D> _collisions = new();
         private Camera _camera;
 
         private void Awake()
@@ -62,7 +62,7 @@ namespace GGJ23
                 case PlacementState.Rotating when Input.GetMouseButtonDown(1):
                     HandleBackToDrag(openConnections, threshold);
                     break;
-                case PlacementState.Rotating when _collisions == 0 && Input.GetMouseButtonDown(0):
+                case PlacementState.Rotating when _collisions.Count == 0 && Input.GetMouseButtonDown(0):
                 {
                     LockDown();
                     break;
@@ -159,6 +159,7 @@ namespace GGJ23
 
         private void SetCollidersLayer(int layer)
         {
+            _collisions.Clear();
             var colliders = GetComponentsInChildren<Collider2D>();
             foreach (var c in colliders)
             {
@@ -168,13 +169,14 @@ namespace GGJ23
 
         private void OnTriggerEnter2D(Collider2D col)
         {
-            if (col.gameObject.layer != OBSTACLE_LAYER)
+            if (_placementState == PlacementState.Locked ||
+                col.gameObject.layer != OBSTACLE_LAYER)
             {
                 return;
             }
 
-            _collisions++;
-            if (_collisions == 1)
+            _collisions.Add(col);
+            if (_collisions.Count == 1)
             {
                 SetMaterial(highlightMaterial);
             }
@@ -182,13 +184,14 @@ namespace GGJ23
 
         private void OnTriggerExit2D(Collider2D other)
         {
-            if (other.gameObject.layer != OBSTACLE_LAYER)
+            if (_placementState == PlacementState.Locked ||
+                other.gameObject.layer != OBSTACLE_LAYER)
             {
                 return;
             }
 
-            _collisions--;
-            if (_collisions == 0)
+            _collisions.Remove(other);
+            if (_collisions.Count == 0)
             {
                 SetMaterial(floatingMaterial);
             }
